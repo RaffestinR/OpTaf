@@ -30,9 +30,9 @@ public class RE {
        /* this.init = init;
         this.relation = relation;
         this.acc = acc;*/
-        for (int i = 0; i < state.length; i++) {
-            this.stateSet.put(state[i], Integer.valueOf(i));
-            this.stateSetP.put(stateP[i], Integer.valueOf(i));
+        for (int i = 0; i < src.length; i++) {
+            this.stateSet.put(src[i], Integer.valueOf(i));
+            this.stateSetP.put(tgt[i], Integer.valueOf(i));
         }
     }
 
@@ -43,27 +43,115 @@ public class RE {
 }
 
 class Obj {
-    ArrayList<Integer> etatSrc;
-    ArrayList<Integer> etatTgt;
-    ArrayList<SystemeElementaire[]> SystemeS;
-   // ArrayList<label> labelSucc;
-
-        public void ObjSucc(Obj o,int x){
-            o.etatSrc.get(x);
-            o.etatTgt.get(x);
-            o.SystemeS.get(x);
-       //     labelSucc.get(x);
-        }
-
-        public void ObjTrans(Obj o,int x) {
-            o.etatSrc.get(x);
-            o.etatTgt.get(x);
-        }
+    ArrayList<Integer> srcO;
+    ArrayList<Integer> tgtO;
+    ArrayList<SystemeElementaire[]> systemeO;
+   // ArrayList<label> labelO;
+    ArrayList<Boolean> initO;
+    ArrayList<Boolean> accO;
+    ArrayList<String> propO;
+    ArrayList<String> procO;
 
         public Obj (RE s){
             Obj o;
+        }
+
+        //Permet de récupérer les Successeurs
+        public void ObjSucc(Obj o,int x){
+            //tri en fonction des src
+            int cpt=0;
+            while (x != o.srcO.get(cpt)){
+                cpt++;
+            }
+            while (x == o.srcO.get(cpt)){
+                o.tgtO.get(cpt);
+                o.systemeO.get(cpt);
+                //o.labelO.get(x);
+                //le print
+                cpt++;
+            }
+        }
+
+        //Permet de récupérer les Predesseurs
+        public void ObjPred(Obj o,int x){
+             //tri en fonction des tgt
+            int cpt=0;
+            while (x != o.tgtO.get(cpt)){
+                cpt++;
+            }
+            while (x == o.tgtO.get(cpt)){
+                o.srcO.get(cpt);
+                o.systemeO.get(cpt);
+                //o.labelO.get(x);
+                //le print
+            cpt++;
+        }
+    }
 
 
+        //Permet de récupérer les Trnasitions (utile?)
+        public void ObjTrans(Obj o,int x) {
+            //tri en fonction des src
+            int cpt=0;
+            while (x != o.srcO.get(cpt)){
+                cpt++;
+            }
+            while (x == o.srcO.get(cpt)){
+                o.srcO.get(cpt);
+                o.tgtO.get(cpt);
+                //print
+                cpt++;
+            }
+
+        }
+
+        //Permet de récupérer les états initiaux
+        public void ObjInit(Obj o,int x){
+            //tri en fonction des src
+            int cpt=0;
+            while (x != o.srcO.get(cpt)){
+                cpt++;
+            }
+            while (x == o.srcO.get(cpt)){
+                o.srcO.get(cpt);
+                //print
+                cpt++;
+            }
+        }
+
+        //Permet de récupérer les etats Accesseurs
+        public void ObjAcc(Obj o,int x) {
+            //tri en fonction des src
+            int cpt=0;
+            while (x != o.srcO.get(cpt)){
+                cpt++;
+            }
+            while (x == o.srcO.get(cpt)){
+                o.srcO.get(cpt);
+                //print
+                cpt++;
+            }
+        }
+        //Permet de récupérer les label
+    /*  public void ObjLabel(Obj o,label a){
+            //tri en fonction des label
+            int cpt=0;
+            while (x != o.labelO.get(cpt)){
+                cpt++;
+            }
+            while (x == o.labelO.get(cpt)){
+                o.labelO.get(x);
+            }
+        }*/
+
+        //Permet de récupérer les Propriétées
+        public void ObjTProp(Obj o,int x) {
+            o.propO.get(x);
+        }
+
+        //Permet de récupérer les Processus
+        public void ObjTProc(Obj o,int x) {
+            o.procO.get(x);
         }
 }
 
