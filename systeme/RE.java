@@ -1,46 +1,178 @@
 package systeme;
-//import java.lang.reflect.Array;
+
 import systeme.SystemeElementaire;
 
-import java.lang.Object;
-import java.lang.reflect.Array;
-import java.util.*;
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Locale;
 
 public class RE {
-    SystemeElementaire[] Systeme = new SystemeElementaire[0]; //?
-    public String[] src;
-    private String[] tgt;
-    private HashMap<String, Integer> stateSet = new HashMap();
-    private HashMap<String, Integer> stateSetP = new HashMap();
-    private ArrayList<String> label = new ArrayList();
-    private HashMap<String, Integer> labelSet = new HashMap();
-    private ArrayList<Object> transition = new ArrayList();
-    private HashMap<Object,Integer> transitionset = new HashMap();
-    private ArrayList<String> processus = new ArrayList();
-    private HashMap<String,Integer> processusSet = new HashMap();
 
+    private static Collator COLLATOR = Collator.getInstance(Locale.FRENCH);
 
-    private ArrayList<Obj> Successeur = new ArrayList();
-    private HashMap<Obj,Integer> SuccesseurSet = new HashMap();
+    private List<Obj> ObjL = new ArrayList<Obj>();
 
-  //  private transition ;
-    private RE (String[] src, String[] tgt/*, Bdd init, Bdd relation, Bdd[] acc*/) {
-        this.src = src;
-        this.tgt = tgt;
-       /* this.init = init;
-        this.relation = relation;
-        this.acc = acc;*/
-        for (int i = 0; i < src.length; i++) {
-            this.stateSet.put(src[i], Integer.valueOf(i));
-            this.stateSetP.put(tgt[i], Integer.valueOf(i));
+  /*
+  * initialisation à rajouter et autre fonction
+  */
+
+    public class Obj {
+        private Integer srcO;
+        private Integer tgtO;
+        private SystemeElementaire systO;
+      //  private label labelO;
+        private boolean initO;
+        private boolean accO;
+        private String propO;
+        private String procO;
+
+        public Obj(Integer src, Integer tgt, SystemeElementaire syst,/*label label,*/ boolean init, boolean acc, String prop, String proc) {
+            super();
+            this.srcO = src;
+            this.tgtO = tgt;
+            this.systO = syst;
+          //  this.labelO = label;
+            this.initO = init;
+            this.accO = acc;
+            this.propO = prop;
+            this.procO = proc;
+        }
+
+        public Integer getSrc() {
+            return this.srcO;
+        }
+
+        public void setSrc(Integer src) {
+            this.srcO = src;
+        }
+
+        public Integer getTgt() {
+            return this.tgtO;
+        }
+
+        public void setTgt(Integer tgt) {
+            this.tgtO = tgt;
+        }
+
+        public SystemeElementaire getSyst() {
+            return this.systO;
+        }
+
+        public void setSyst(SystemeElementaire syst) {
+            this.systO = syst;
+        }
+
+       /* public label getLabel(label label){
+            this.labelO = label;
+        }*/
+
+        public boolean getInit() {
+            return this.initO;
+        }
+
+        public void setInit(boolean init) {
+            this.initO = init;
+        }
+
+        public boolean getAcc() {
+            return this.accO;
+        }
+
+        public void setAcc(boolean acc) {
+            this.accO = acc;
+        }
+
+        public String getProp() {
+            return this.propO;
+        }
+
+        public void setProp(String prop) {
+            this.propO = prop;
+        }
+
+        public String getProc() {
+            return this.procO;
+        }
+
+        public void setPrenom(String proc) {
+            this.procO = proc;
         }
     }
 
 
-   /* private RE succ(int x){
+    public class ObjComparator implements Comparator<Obj> {
 
-    }*/
+        private CompareType type;
+
+        public ObjComparator(CompareType t) {
+            this.type = t;
+        }
+
+        @Override
+        public int compare(Obj o1, Obj o2) {
+
+            switch (type) {
+                case SRC:
+                    int c = COLLATOR.compare(o1.getSrc(), o2.getSrc());
+                    return c;
+
+
+                case TGT:
+                    c = COLLATOR.compare(o1.getTgt(), o2.getTgt());
+                    return c;
+
+                case SYST:
+                    c = COLLATOR.compare(o1.getSyst(), o2.getSyst());
+                    return c;
+
+                /*case LABEL:
+                    c = COLLATOR.compare(o1.getLabel(), o2.getLabel());
+                    return c;
+                    */
+                case INIT:
+                    c = COLLATOR.compare(o1.getInit(), o2.getInit());
+                    return c;
+
+                case ACC:
+                    c = COLLATOR.compare(o1.getAcc(), o2.getAcc());
+                    return c;
+
+                case PROP:
+                    c = COLLATOR.compare(o1.getProp(), o2.getProp());
+                    return c;
+
+                case PROC:
+                    c = COLLATOR.compare(o1.getProc(), o2.getProc());
+                    return c;
+
+
+                default:
+                    System.out.println("Invalid choice");
+                    return 2; // à revoir par la suite
+
+            }
+        }
+    }
+
+    public enum CompareType {
+        SRC,
+        TGT,
+        SYST,
+        LABEL,
+        INIT,
+        ACC,
+        PROP,
+        PROC;
+    }
+
 }
+
+/*
+        à réutiliser par la suite
+
 
 class Obj {
     ArrayList<Integer> srcO;
@@ -133,7 +265,7 @@ class Obj {
             }
         }
         //Permet de récupérer les label
-    /*  public void ObjLabel(Obj o,label a){
+      public void ObjLabel(Obj o,label a){
             //tri en fonction des label
             int cpt=0;
             while (x != o.labelO.get(cpt)){
@@ -142,39 +274,16 @@ class Obj {
             while (x == o.labelO.get(cpt)){
                 o.labelO.get(x);
             }
-        }*/
-
-        //Permet de récupérer les Propriétées
-        public void ObjTProp(Obj o,int x) {
-            o.propO.get(x);
         }
 
-        //Permet de récupérer les Processus
-        public void ObjTProc(Obj o,int x) {
-            o.procO.get(x);
-        }
-}
-
-/*
-public class RE {
-    public final int etat;
-    public final int etatI;
-    //public final ArrayList<int, system, label> tableau[];
-
-   // public final label action;
-    public final Object transition;
-    private ArrayList<transition> tableau = new ArrayList();
-
-    private RE(int e, int i, ArrayList tab, Object t) {
-        this.etat = e;
-        this.etatI = i;
-   //     this.action = a;
-        this.transition = t;
-        this.tableau = tab;
+    //Permet de récupérer les Propriétées
+    public void ObjTProp(Obj o,int x) {
+        o.propO.get(x);
     }
 
- */
-  //  private succ(){};
+    //Permet de récupérer les Processus
+    public void ObjTProc(Obj o,int x) {
+        o.procO.get(x);
+    }
 
-
-
+*/
