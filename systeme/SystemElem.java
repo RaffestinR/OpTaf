@@ -2,16 +2,12 @@ package systeme;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
-
-import com.sun.org.apache.regexp.internal.RE;
 
 
-public class SystemeElementaire {
+public class SystemElem {
     String[] nomSousSysteme = new String[0];
-    SystemeElementaire[] sousSysteme = new SystemeElementaire[0];
+    SystemElem[] sousSysteme = new SystemElem[0];
     public String[] src;
     private String[] tgt;
     private HashMap<String, Integer> stateSet = new HashMap();
@@ -32,7 +28,7 @@ public class SystemeElementaire {
           return init;
       }*/
 
-    private SystemeElementaire(SystemeElementaire s) {
+    private SystemElem(SystemElem s) {
         this.nomSousSysteme = s.nomSousSysteme;
         this.sousSysteme = s.sousSysteme;
         this.src = s.src;
@@ -49,7 +45,6 @@ public class SystemeElementaire {
         this.completeRelation = s.completeRelation;*/
     }
 
-    /*private RE succ (RE s){
 
-    }*/
+
 }
