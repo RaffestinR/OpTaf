@@ -3,21 +3,152 @@ package systeme;
 import systeme.SystemeElementaire;
 
 import java.text.Collator;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 public class RE {
 
     private static Collator COLLATOR = Collator.getInstance(Locale.FRENCH);
 
-    private List<Obj> ObjL = new ArrayList<Obj>();
+    private ArrayList<Obj> ObjL = new ArrayList<Obj>();
 
-  /*
-  * initialisation à rajouter et autre fonction
-  */
+    private int dernierTri;
+
+    /*public RE (){
+        à faire une fois systeme elémentaire fait
+    }*/
+
+  //----------------------------------------------------------------------------
+
+  //Permet de récupérer les Successeurs
+  public ArrayList<Integer> ObjSucc(ArrayList<Integer> L){
+      int cpt = 0,cptL=0, x=0, taille = L.size(),tailleL=ObjL.size();
+      boolean y = false;
+      Iterator it = ObjL.iterator();
+      //tri list
+      if (dernierTri !=1) {
+          Collections.sort(this.ObjL, new ObjComparator(CompareType.SRC));//tri en fonction des src
+          dernierTri = 1;
+      }
+      while (cpt<taille){
+          //x=ObjL.indexOf(ObjL.get(L.get(cpt)).getSrc());//pb
+          while (cptL<tailleL){
+              if(L.get(cpt)==ObjL.get(cptL).getSrc()){
+                  x = cptL;
+                  break;
+              }
+              else x = -1;
+              cptL++;
+          }
+          if (x != -1){
+              y = true;
+              //print
+              L.add(ObjL.get(x).getTgt());
+              while (y == true) {
+                  if (it.next() != L.get(cpt)){
+                      y = false;
+
+                      //supp tête list
+                  }
+                  else {
+                      //print
+                      L.add(ObjL.get(cpt).getTgt());
+                      cptL++;
+                  }
+              }
+              L.remove(cpt);
+              cptL++; //probablement ici
+          }
+          //else //supp tête
+         //     L.remove(cpt); //juste mal placé
+          cpt++;
+     //     cptL++;
+      }//tri liste (plus supp doublon)
+      return L;
+  }
+
+        //Permet de récupérer les Predesseurs
+        public void ObjPred(Obj o,int x){
+             //tri en fonction des tgt
+            int cpt=0;
+            while (x != o.tgtO.get(cpt)){
+                cpt++;
+            }
+            while (x == o.tgtO.get(cpt)){
+                o.srcO.get(cpt);
+                o.systemeO.get(cpt);
+                //o.labelO.get(x);
+                //le print
+            cpt++;
+        }
+    }
+
+
+        //Permet de récupérer les Trnasitions (utile?)
+        public void ObjTrans(Obj o,int x) {
+            //tri en fonction des src
+            int cpt=0;
+            while (x != o.srcO.get(cpt)){
+                cpt++;
+            }
+            while (x == o.srcO.get(cpt)){
+                o.srcO.get(cpt);
+                o.tgtO.get(cpt);
+                //print
+                cpt++;
+            }
+
+        }
+
+        //Permet de récupérer les états initiaux
+        public void ObjInit(Obj o,int x){
+            //tri en fonction des src
+            int cpt=0;
+            while (x != o.srcO.get(cpt)){
+                cpt++;
+            }
+            while (x == o.srcO.get(cpt)){
+                o.srcO.get(cpt);
+                //print
+                cpt++;
+            }
+        }
+
+        //Permet de récupérer les etats Accesseurs
+        public void ObjAcc(Obj o,int x) {
+            //tri en fonction des src
+            int cpt=0;
+            while (x != o.srcO.get(cpt)){
+                cpt++;
+            }
+            while (x == o.srcO.get(cpt)){
+                o.srcO.get(cpt);
+                //print
+                cpt++;
+            }
+        }
+        //Permet de récupérer les label
+      public void ObjLabel(Obj o,label a){
+            //tri en fonction des label
+            int cpt=0;
+            while (x != o.labelO.get(cpt)){
+                cpt++;
+            }
+            while (x == o.labelO.get(cpt)){
+                o.labelO.get(x);
+            }
+        }
+
+    //Permet de récupérer les Propriétées
+    public void ObjTProp(Obj o,int x) {
+        o.propO.get(x);
+    }
+
+    //Permet de récupérer les Processus
+    public void ObjTProc(Obj o,int x) {
+        o.procO.get(x);
+    }
+
+  //------------------------------------------------------------------------
 
     public class Obj {
         private Integer srcO;
@@ -151,21 +282,21 @@ public class RE {
 
                 default:
                     System.out.println("Invalid choice");
-                    return 2; // à revoir par la suite
+                    return -2; // à revoir par la suite
 
             }
         }
     }
 
     public enum CompareType {
-        SRC,
-        TGT,
-        SYST,
-        LABEL,
-        INIT,
-        ACC,
-        PROP,
-        PROC;
+        SRC,    //DernierTri <=> 1
+        TGT,    //DernierTri <=> 2
+        SYST,   //DernierTri <=> 3
+        LABEL,  //DernierTri <=> 4
+        INIT,   //DernierTri <=> 5
+        ACC,    //DernierTri <=> 6
+        PROP,   //DernierTri <=> 7
+        PROC;   //DernierTri <=> 8
     }
 
 }
