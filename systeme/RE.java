@@ -64,8 +64,10 @@ public class RE {
 
     //fonction retournant les solution de EX
     public ArrayList<Integer> EX(ArrayList p) {
-
-        return ObjPred(ObjSuccL(p));
+        if (p.get(0) instanceof String) {
+            return ObjPred(ObjSuccL(p));
+        }
+        else return ObjPred(ObjSucc(p));
     }
 
 
@@ -98,7 +100,40 @@ public class RE {
         return L;
     }
 
+    public ArrayList<Integer> EF(ArrayList p){
+        int i = 0, j = 0, taille = p.size();
+        ArrayList X = new ArrayList();
+        ArrayList L2 = AF(p);
+        ArrayList L3 = new ArrayList();
+        ArrayList tmp = new ArrayList();
+        while (i<ObjL.size()){
+            if(p.contains(ObjL.get(i).getSrc()) == false){
+                L3.add(ObjL.get(i).getSrc());
+            }
+            i++;
+        }
+        i=0;
+        while (i<taille){
+            tmp.add(p.get(i));
+            X = ObjSucc(tmp);
+                while(j<X.size()){
+                    if(X.get(j)==L3.get(i)){
+                        j++;
+                    }
+                    if (L2.contains(X.get(j))){
+                        L2.add(L3.get(i));
+                        break;
+                    }//else recursivité
+                }
+        }
 
+    }
+
+    public ArrayList<Integer> AF(ArrayList p) {
+        if (p.get(0) instanceof String) {
+            return ObjLabelL(p);
+        }else return ObjPred(p);
+    }
 /*
     //Permet de récupérer les états initiaux (utile?)
     public ArrayList<Integer> ObjInit(){
