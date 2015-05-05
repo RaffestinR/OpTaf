@@ -1,6 +1,7 @@
 
         package systeme;
 
+        import java.lang.reflect.Array;
         import java.text.Collator;
         import java.util.*;
 
@@ -43,9 +44,13 @@ public class RE {
         return ObjL.search(L,type.LAB,type.TGT,type.LAB);
     }
 
-    //Deux fonctions pas forcément utile
+
     public ArrayList<String> ObjLabel(ArrayList<Integer> L){
         return ObjL.search(L,type.SRC,type.SRC,type.LAB);
+    }
+
+    public ArrayList<String> ObjProp(ArrayList<Integer> L){
+        return ObjL.search(L,type.SRC,type.SRC,type.PROP);
     }
 
     /*public ArrayList<Integer> ObjLabel(ArrayList<Integer> L){
@@ -54,21 +59,27 @@ public class RE {
 
     //Permet de récupérer les src -> label
     public ArrayList<Integer> ObjLabelL(ArrayList<String> L){
-        return ObjL.search(L,type.LAB,type.LAB,type.SRC);
+        return ObjL.search(L, type.LAB, type.LAB, type.SRC);
     }
 
     //fonction retournant les solution de EX
-    public ArrayList<Integer> EX(ArrayList<String> p) {
+    public ArrayList<Integer> EX(ArrayList p) {
+
         return ObjPred(ObjSuccL(p));
     }
 
-    public ArrayList<Integer> AX(ArrayList<String> p) {
+
+    public ArrayList<Integer> AX(ArrayList p) {
         boolean B = true;
-        ArrayList<Integer> L = ObjSuccL(p);
-        int i=0,j, taille1 = L.size();
+        ArrayList<Integer> L = new ArrayList();
+        if (p.get(0) instanceof String){
+            L = ObjSuccL(p);
+        }
+        else L = ObjSucc(p);
+        int i=0,j, taille = L.size();
         ArrayList L2;
         ArrayList L3 = new ArrayList();
-        while (i<taille1){
+        while (i<taille){
             j=0;
             L3.add(L.get(i));
             L2 = ObjLabel(L3);
@@ -81,7 +92,7 @@ public class RE {
             if (B==false){
                 L.remove(i);
                 i--;
-                taille1--;
+                taille--;
             }
         }
         return L;
