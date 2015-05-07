@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/VeriTaf.iml" filepath="$PROJECT_DIR$/VeriTaf.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OpTaf2.iml" filepath="$PROJECT_DIR$/OpTaf2.iml" />
     </modules>
   </component>
 </project>
-
