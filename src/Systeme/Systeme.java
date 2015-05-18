@@ -44,7 +44,7 @@ public class Systeme {
         ArrayList l = new ArrayList();
         if(i.getClass().equals(compareType(type.INT))){
             ArrayList<Integer> currentList;
-            currentList = trans.get(i);// à corriger
+            currentList = trans.get((Integer) i);// à corriger
             for (x=1;x<currentList.size();x++) {
                 if(currentList.get(x) != -1){
                     l.add(currentList.get(x));
@@ -56,7 +56,7 @@ public class Systeme {
             boolean y=false;
             int j,z;
             if (se.nomEtiq.contains(i) && se.nomProp.contains(i)){//1
-                System.out.println("Problème de confusion lors des initialisations des propriétées et étiquettes");
+                System.out.println("Problème de confusion lors des initialisations des propriétées et étiquettes");//pour le moment à remplacer
             }else if (se.nomEtiq.contains(i)){//3
                 x = 0;
                 while(y==false){
@@ -99,7 +99,7 @@ public class Systeme {
                     }
                 }
             }else {//2
-                System.out.println("Aucune solution");
+                System.out.println("Aucune solution");//pour le moment à remplacer
             }
         }
         Collections.sort(l);
@@ -134,11 +134,11 @@ public class Systeme {
     public ArrayList pred (Object i) {
         ArrayList l = new ArrayList();
         if(i.getClass().equals(compareType(type.INT))){
-            l= predFct(i,type.INT);
+            l= predFct(i, type.INT);
         }
         if(i.getClass().equals(compareType(type.STR))){
             if (se.nomEtiq.contains(i) && se.nomProp.contains(i)){
-                System.out.println("Problème de confusion lors des initialisations des propriétées et étiquettes");
+                System.out.println("Problème de confusion lors des initialisations des propriétées et étiquettes");//pour le moment à remplacer
                 l = null;
             }else if (se.nomEtiq.contains(i)){
                 l= predFct(i,type.STR);//attrention à vérifier avec la construction du tableau (ici string) surement à changer.
@@ -162,7 +162,7 @@ public class Systeme {
                     l.addAll(predFct(S.get(z),type.INT));
                 }
             }else {//2
-                System.out.println("Aucune solution");
+                System.out.println("Aucune solution");//pour le moment à remplacer
                 l = null;
             }
         }
@@ -179,6 +179,57 @@ public class Systeme {
         Collections.sort(l2);
         return l2;
     }
+
+    //--------------------------------------------------
+
+    public String toDot() {
+        if (init==null) {
+            return "digraph system {\n empty [shape=box]}\n";
+        }
+        StringBuilder res = new StringBuilder();
+        res.append("digraph system {\n");
+
+        recToDotState(res);
+
+        toDotTransition(res);
+
+        res.append("}\n");
+        return res.toString();
+    }
+
+    private void recToDotState(StringBuilder res) {
+        int x;
+        if (init == null) {
+            return;
+        }
+
+            if (init != null) {
+                for(x=0;x<init.size();x++) {
+                    res.append("_" + init.get(x) + "[label=\"\", shape=none ];\n");
+                    res.append("_" + init.get(x) + "->" + init.get(x) + ";\n");
+                }
+            }
+
+    }
+
+    private void toDotTransition(StringBuilder res) {
+        int x, y, z;
+        ArrayList J = new ArrayList();
+        J.add(-1);
+        ArrayList L;
+        ArrayList M;
+        for (x=0;x<transEtiq.size();x++){
+            L=transEtiq.get(x);
+            for (y=0;y<L.size();y++) {
+                M = (ArrayList) L.get(y);
+                if (L.get(y)!= J)
+                    for (z = 0; z < M.size(); z++) {
+                        res.append(y + "->" + M.get(z) + " [label= \"" + se.nomEtiq.get(x) + "\"];\n");
+                }
+            }
+        }
+    }
+    //--------------------------------------------------
 
     public Object compareType(type t) {
         Integer i = 0;
