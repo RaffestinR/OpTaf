@@ -212,7 +212,6 @@ public class Systeme {
 
     public enum type {
         INT,
-        STR,
-        BOO;
+        STR;
     }
 }
