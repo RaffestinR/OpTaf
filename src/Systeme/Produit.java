@@ -119,8 +119,62 @@ public class Produit{
         return J;
     }
 
-    // ne fonctionne pas pour le moment dans le cas où on a 0->1[a] et 0->2[a]
+
     public ArrayList transP (Produit P){
+        Object etiq=0;
+        int x, y, z, A, eti, F, mark, u;
+        Object Y;
+        ArrayList X, VS, C = null, G, H, E;
+        ArrayList<ArrayList<Integer>> B;
+        ArrayList D;
+        ArrayList L = new ArrayList();
+        L.add(-1);
+        Systeme Z;
+        for(x=0;x<etatP.size();x++){
+            X = etatP.get(x);
+            for(y=0;y<synchro.size();y++){
+                mark=0;
+                VS = synchro.get(y);
+                D = new ArrayList();
+                for(z=0;z<nbSyst;z++){
+                    Y =  VS.get(z);
+                    Z = S.get(z);
+                    A = Z.se.nomEtiq.indexOf(Y);
+                    if (A!=-1){
+                        etiq=Y;
+                    }
+                    C = (ArrayList) X.get(z);
+                    if(A!=-1) {
+                        u = (int) C.get(0);
+                        B = Z.transEtiq.get(A);
+                        E = B.get(u);
+                        if(E!=L){
+                            D.add(E);
+                        }else{
+                            D.add(C);
+                            mark++;
+                        }
+                    }else{
+                        D.add(C);
+                        mark++;
+                    }
+                }
+                if(mark < nbSyst){
+                    F = P.etatP.indexOf(D);
+                    eti = P.se.nomEtiq.indexOf(etiq);
+                    G = P.transP.get(eti);
+                    H= (ArrayList) G.get(x);
+                    if (H == L){
+                        H.remove(-1);
+                        H.add(F);
+                    }
+                }
+            }
+        }return transP;
+    }
+
+    // ne fonctionne pas pour le moment dans le cas où on a 0->1[a] et 0->2[a]
+   /* public ArrayList transP (Produit P){
         int x, y, z, A = 0, F, u;
         Object Y;
         ArrayList X, VS, C, G, H, E;
@@ -156,8 +210,81 @@ public class Produit{
                 }
             }
         }return transP;
-    }
-/*
+    }*/
+
+    //2e jet
+    /*public ArrayList transP (Produit P){
+        int x;
+        int y;
+        int z;
+        int A = 0;
+        int eti;
+        Object etiq=0;
+        int F;
+        int u;
+        int cpt=0;
+        int cpt2;
+        int cpt3;
+        Object Y;
+        ArrayList X, VS, C, G, H, E,I = null,J;
+        ArrayList<ArrayList<Integer>> B;
+        ArrayList D = new ArrayList();
+        ArrayList L = new ArrayList();
+        L.add(-1);
+        Systeme Z;
+        for(x=0;x<etatP.size();x++){
+            X = etatP.get(x);
+            for(y=0;y<synchro.size();y++){
+                VS = synchro.get(y);
+                D = new ArrayList();
+                int tmp=0;
+                for(z=0;z<nbSyst;z++){
+
+                    Y =  VS.get(z);
+                    Z = S.get(z);
+                    A = Z.se.nomEtiq.indexOf(Y);//Z.etat.indexOf(Y); A peut être égale à -1
+                    if (A!=-1){
+                        etiq=Y;
+                    }
+                    //mettre un if pour B, et probablement le reste
+                    B = Z.transEtiq.get(A);
+                    C = (ArrayList) X.get(z);
+                    E =  B.get(tmp);//E =  B.get(z); // même problème que pour B.
+                    u = (int) C.get(0);
+                    //(1) peut être rajouter une boucle ici...
+                    if(E.size()==1 && cpt==0){//modifier condition pour E avec un marqheur ou un truc dans le même style
+                        if(E != L) {
+                            D.add(E);tmp++;
+                        }else D.add(X.get(z));//D.add(X.get(u));//E doit pourvoir valoir -1, faire au dessus(au niveau de B) un if sur B, changant E.
+                    }else if (cpt ==0 && E.size() != 1){
+                        //tmp=z;
+                        for(cpt2=0;cpt2<E.size();cpt2++){
+                            D.add(E.get(cpt2));
+                            I.add(D);
+                            if(cpt2!=E.size()-1){
+                                D.remove(z);
+                            }
+                            cpt++;
+                        }
+                    }else
+                        for(cpt3=0;cpt<I.size();cpt3++){
+                            J=D;
+                    }
+                }
+                if(tmp != 0){
+                F = P.S.get(x).etat.indexOf(D);
+                eti = P.se.nomEtiq.indexOf(etiq);
+                G = transP.get(eti);  // problème ici, A n'est pas le bon paramêtre à prendre, rajout d'une boucle pourrai régler potentielement le soucis, mais il existe surement une autre façon de procéder
+                                    // par exemple en sauvegardant la valeur de A positive
+                H= (ArrayList) G.get(x);
+                if (H == L){
+                    H.remove(-1);
+                    H.add(F);
+                }}
+            }
+        }return transP;
+    }*/
+/*//premier jet
     public ArrayList<ArrayList<ArrayList<Integer>>> transP (Produit P){
         ArrayList<ArrayList<ArrayList<Integer>>> J = new ArrayList();
         J=remplir(P);
