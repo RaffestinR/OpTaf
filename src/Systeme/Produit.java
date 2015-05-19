@@ -35,7 +35,8 @@ public class Produit{
         int X=1,Y,cpt,x,u,v;
         Systeme A;
         ArrayList<ArrayList> I = new ArrayList();
-        ArrayList J;
+        ArrayList J = new ArrayList();
+        int K;
         for(x=0;x<nbSyst;x++){
             A=P.S.get(x);
             X=X/(A.init.size());
@@ -54,8 +55,13 @@ public class Produit{
                 }
             }
         }
-        return I;
+        for (x=0;x<I.size();x++){
+            K=etatP.indexOf(I.get(x));
+            J.add(x,K);//J.add(K);
+        }
+        return J;
     }
+
     // à revoir
     public ArrayList etatP(Systeme A, Systeme B){
         ArrayList<ArrayList<Integer>> etatNouveau = new ArrayList();
@@ -182,15 +188,14 @@ public class Produit{
                         mark++;
                     }
                 }
-                if(mark < nbSyst){
+                if(mark < nbSyst){//
                     F = P.etatP.indexOf(D);
                     eti = P.se.nomEtiq.indexOf(etiq);
                     G = P.transP.get(eti);
                     H= (ArrayList) G.get(x);
                     if (H == L){
                         H.remove(-1);
-                        H.add(F);
-                    }
+                    }H.add(F);
                 }
             }
         }return transP;
