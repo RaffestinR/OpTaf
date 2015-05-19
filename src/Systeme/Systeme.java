@@ -18,8 +18,6 @@ public class Systeme {
     public ArrayList<ArrayList<Boolean>> prop;
 
     public ArrayList<ArrayList<ArrayList<Integer>>> transEtiq;
-    //public ArrayList<ArrayList<ArrayList<String>>> transEtiq2;
-    //ou:  public ArrayList<ArrayList<ArrayList<Object>>> transProp;
     private type type;
     public SystemeElem se;
 
@@ -115,7 +113,7 @@ public class Systeme {
         Collections.sort(l2);
         return l2;
     }
-
+/* N'est pas utile
     public ArrayList<Integer> predFct (Object i,type t){
         int x,y;
         ArrayList l = new ArrayList();
@@ -179,7 +177,7 @@ public class Systeme {
         Collections.sort(l2);
         return l2;
     }
-
+*/
     //--------------------------------------------------
 
     public String toDot() {
@@ -209,7 +207,6 @@ public class Systeme {
                     res.append("_" + init.get(x) + "->" + init.get(x) + ";\n");
                 }
             }
-
     }
 
     private void toDotTransition(StringBuilder res) {
@@ -246,7 +243,7 @@ public class Systeme {
                 return null;
         }
     }
-
+/* N'est plus utile
     public ArrayList selectType(type t) {
 
         switch (t) {
@@ -260,7 +257,7 @@ public class Systeme {
                 return null;
         }
     }
-
+*/
     public enum type {
         INT,
         STR;

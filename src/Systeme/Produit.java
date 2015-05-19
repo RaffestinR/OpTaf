@@ -11,26 +11,51 @@ public class Produit{
     public ArrayList<Integer> initP;
     public ArrayList<ArrayList<Integer>> transP;
     public ArrayList<ArrayList<Boolean>> propP;
-    public Integer trans[][][];
+
     public SystemeElem se;
     private Integer nbSyst = 0;
 
     public Produit(Produit P){
-        this.S=P.S;
-        this.synchro = P.synchro;
+        S=P.S;
+        etatP=etatP(P);
+        initP=initP(P);
+        transP=transP(P);
+        //propP=propP(P);
+        this.se.nomEtiq=nomEtiqP(P);
+        //this.se.nomProp=nomPropP(P);
+        nbSyst=P.S.size();
     }
 
-
-/*
-    public ArrayList<Systeme> getSyst() {
-        return this.S;
-    }
-*/
-    public void setSyst(ArrayList<Systeme> S) {
-        this.S = S;
+    public Produit(ArrayList<Systeme> P){
+        S=P;
+        nbSyst=P.size();
     }
 
-
+    public ArrayList initP(Produit P){
+        int X=1,Y,cpt,x,u,v;
+        Systeme A;
+        ArrayList<ArrayList> I = new ArrayList();
+        ArrayList J;
+        for(x=0;x<nbSyst;x++){
+            A=P.S.get(x);
+            X=X/(A.init.size());
+        }
+        Y=X;
+        for(x=0;x<nbSyst;x++){
+            cpt=0;
+            A=P.S.get(x);
+            while(cpt<Y){
+                for(v=0;v<A.init.size();u++){
+                    for(u=0;u<X;u++){
+                        J=I.get(cpt);
+                        J.add(A.init.get(v));
+                        I.add(cpt,J);
+                    }
+                }
+            }
+        }
+        return I;
+    }
     // à revoir
     public ArrayList etatP(Systeme A, Systeme B){
         ArrayList<ArrayList<Integer>> etatNouveau = new ArrayList();
@@ -76,18 +101,15 @@ public class Produit{
         ArrayList<ArrayList<Integer>> X = new ArrayList();
         int x,y;
         for(x=0;x<P.S.size();x++){
-
-
             for(y=0;y<P.S.get(x).se.nomEtiq.size();y++){
                 ArrayList<Integer> Y = new ArrayList();
                 Y.add(P.S.get(x).se.nomEtiq.indexOf(P.se.nomEtiq.get(y)));
             }
         }
-
     }
 
         */
-
+    //n'est plus utile
     public ArrayList<ArrayList<Integer>> tradSynchro (Produit P){
        ArrayList<ArrayList<Integer>> F= new ArrayList();
        ArrayList<Integer> G= new ArrayList();
@@ -119,7 +141,8 @@ public class Produit{
         return J;
     }
 
-
+    //Attention, cette version ne prend pas encore en compte le cas suivant:
+    //exemple:0->1[a]; 0->2[a]
     public ArrayList transP (Produit P){
         Object etiq=0;
         int x, y, z, A, eti, F, mark, u;
