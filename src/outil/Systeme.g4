@@ -42,9 +42,9 @@ options {
   }
 
   public static void parser(CharStream input) throws Exception {
-    AutomateLexer lexer = new AutomateLexer(input);
+    SystemeLexer lexer = new SystemeLexer(input);
     CommonTokenStream tokens = new CommonTokenStream(lexer);
-    AutomateParser parser = new AutomateParser(tokens);
+    SystemeParser parser = new SystemeParser(tokens);
     parser.commandes();
   }
 
