@@ -183,6 +183,41 @@ public class Systeme {
         }
     }
 
+    public boolean isState(int n) {
+        if(etat.contains(n)){
+            return true;
+        }
+        else return false;
+    }
+
+    public void addInitState(int s) {
+        this.init.add(s);
+    }
+
+    /*public void addTransition(int src, int tgt) {
+        addTransition(src, tgt, "*");
+    }*/
+
+    /* a revoir */
+    public void addTransition(int src, int tgt, String l) {
+        int a = se.nomEtiq.indexOf(l);
+        if(a==-1){
+            se.nomEtiq.add(l);
+            a = se.nomEtiq.indexOf(l);
+        }
+        ArrayList<ArrayList<Integer>> T = transEtiq.get(a);
+        int b = etat.indexOf(src);
+        if(b==-1){
+            etat.add(src);
+            b = etat.indexOf(src);
+        }
+        ArrayList<Integer> U = T.get(b);
+        if(!U.contains(tgt)){
+            U.add(tgt);
+        }
+    }
+
+
     public enum type {
         INT,
         STR;

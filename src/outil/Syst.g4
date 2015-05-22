@@ -1,4 +1,4 @@
-grammar Systeme;
+grammar Syst;
 
 options {
   language = Java;
@@ -6,9 +6,7 @@ options {
 
 @header {
   package outil;
-  import bdd.*;
-  import mso.*;
-  import systeme.*;
+  import Systeme.*;
   import java.util.ArrayList;
   import java.util.HashMap;
   import java.io.File;
@@ -21,13 +19,14 @@ options {
   import mso.*;
   import systeme.*;
 }
+
+Automaton res;
+static HashMap<String,Automaton> table = new HashMap<String,Automaton>();
 */
-
-
 @members {
-  Automaton res;
+
   Systeme resS;
-  static HashMap<String,Automaton> table = new HashMap<String,Automaton>();
+
   static HashMap<String,Systeme> tableS = new HashMap<String,Systeme>();
 
 
@@ -42,9 +41,9 @@ options {
   }
 
   public static void parser(CharStream input) throws Exception {
-    SystemeLexer lexer = new SystemeLexer(input);
+    SystLexer lexer = new SystLexer(input);
     CommonTokenStream tokens = new CommonTokenStream(lexer);
-    SystemeParser parser = new SystemeParser(tokens);
+    SystParser parser = new SystParser(tokens);
     parser.commandes();
   }
 
@@ -219,6 +218,7 @@ commande : (i=ID
     $val=s.toString();
   };
 
+//---------------------------------------------
 
 systeme : '[' p=propS ']' '{' e=etatS
   {
@@ -230,7 +230,7 @@ systeme : '[' p=propS ']' '{' e=etatS
   }
   ;
 
-propS  returns [ArrayList<String> val]:
+propS  returns [ArrayList<String> val]://on ne s'y interesse pas de suite
 (    {$val = new ArrayList<String>();}
 
 |
@@ -246,12 +246,13 @@ propS  returns [ArrayList<String> val]:
    )*
    )
 ;
-
+//surement à modifier
 etatS returns [int val]: 'etat' '=' n=NUM ';'
   {
     $val = Integer.parseInt($n.text);
   }
 ;
+
 
 initS :'init' '=' n0=NUM
   {
@@ -270,7 +271,7 @@ initS :'init' '=' n0=NUM
   )* ';'
   ;
 
-etatPropS: n=NUM
+etatPropS: n=NUM//on ne s'y interesse pas de suite
   {
     int s = Integer.parseInt($n.text);
     if (!resS.isState(s))
@@ -292,7 +293,7 @@ etatPropS: n=NUM
   }
   )* ';';
 
-transitionS: n0=NUM '->' n1=NUM
+transitionS: n0=NUM '->' n1=NUM //fonction addTransition associé réalisé. Aucune modif apporté ici.
 {
   int src = Integer.parseInt($n0.text);
   int tgt = Integer.parseInt($n1.text);
@@ -316,11 +317,11 @@ transitionS: n0=NUM '->' n1=NUM
 )* ']')?
 {
   if (!id)
-    resS.addTransition(src,tgt);
+    resS.addTransition(src,tgt,"*");
 }
 ';';
 
-synchro  : '<' i0=ID  i1=ID
+synchro  : '<' i0=ID  i1=ID // pas de modification ici dans l'imédiat.
 {
   ArrayList<Systeme> sys = new ArrayList<Systeme>();
   ArrayList<String> nom = new ArrayList<String>();
@@ -341,9 +342,10 @@ synchro  : '<' i0=ID  i1=ID
      resS.reduce();
 }
 ;
+//modif à réaliser. premier try
 
 vecteur : {
-  ArrayList<String> synchro = new ArrayList<String>();
+  ArrayList<Object> synchro = new ArrayList<Object>();
   }
 '<' i0=ID
 {
@@ -355,25 +357,11 @@ vecteur : {
 }
 )* '>'
 {
-  boolean id = false;
+resS.addTransition(synchro);
 }
-
-('->' i2=ID
-{
-  id = true;
-  resS.addTransition(synchro.toArray(new String[]{}),$i2.text);
-}
-(',' i3=ID
-{
-  resS.addTransition(synchro.toArray(new String[]{}),$i3.text);
-}
-)*)? ';'
-{
-  if (!id)
-    resS.addTransition(synchro.toArray(new String[]{}));
-}
+';'
 ;
-
+/*
 mso returns [Automaton val]: m0=msoSimple
   {
     $val = $m0.val;
@@ -552,10 +540,10 @@ subterm  returns [Bdd b]
   {
     $b = $a.b.not();
   }
-  ;
+  ;*/
 
 /*  formule ctl  */
-
+/*
 ctlformule returns [Bdd b]
   : f1=ctlmulterm2
   {
@@ -679,7 +667,7 @@ ctlsubterm  returns [Bdd b]
   {
      $b = resS.EU(Bdd.TRUE,$f.b.not()).not();
   }
-  ;
+  ;*/
 
 
 

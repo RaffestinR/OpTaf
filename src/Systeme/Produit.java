@@ -3,6 +3,7 @@ package Systeme;
 
 import java.util.ArrayList;
 import java.lang.Object;
+import java.util.Arrays;
 
 public class Produit{
     public ArrayList<Systeme> S;
@@ -200,4 +201,40 @@ public class Produit{
             }
         }return transP;
     }
+/*inutile finalement
+    public Boolean verifE(Object o){
+        Object t = '_';
+        if(o==t) {
+            return false;
+        }
+        else return true;
+    }
+*/
+
+    public void addTransition(ArrayList sync) {
+        synchro.add(sync);
+    }
+
+   /* public void addTransition(ArrayList sync, String l) {
+        assert (synchro.length == this.sousSysteme.length);
+        Bdd res = Bdd.TRUE;
+        int cpt = 0;
+        for (int s = 0; s < synchro.length; s++) {
+            Bdd tmp = synchro[s].equals("_") ? this.sousSysteme[s].boucle() :
+                    (Bdd) this.sousSysteme[s].relation.get(((Integer) this.sousSysteme[s].labelSet.get(synchro[s])).intValue());
+            tmp = tmp.substitute(this.sousSysteme[s].state, (String[]) Arrays.copyOfRange(this.state, cpt, cpt + this.sousSysteme[s].state.length));
+            tmp = tmp.substitute(this.sousSysteme[s].stateP, (String[]) Arrays.copyOfRange(this.stateP, cpt, cpt + this.sousSysteme[s].stateP.length));
+            cpt += this.sousSysteme[s].state.length;
+            res = res.and(tmp);
+        }
+        Integer index = (Integer) this.labelSet.get(l);
+        if (index == null) {
+            this.labelSet.put(l, Integer.valueOf(this.label.size()));
+            this.label.add(l);
+            this.relation.add(res);
+        } else {
+            this.relation.set(index.intValue(), ((Bdd) this.relation.get(index.intValue())).or(res));
+        }
+        initCompleteRelation();
+    }*/
 }
