@@ -217,6 +217,39 @@ public class Systeme {
         }
     }
 
+    public boolean isProp(Object i){
+        if (se.nomEtiq.contains(i)){
+            return true;
+        }else return false;
+    }
+
+    public ArrayList<ArrayList<Boolean>> initStateProperty() {
+        int x,y;
+        for (x=0;x<etat.size();x++){
+            ArrayList<Boolean> T= prop.get(x);
+            for (y=0;y<se.nomProp.size();y++){
+                Boolean U = T.get(y);
+                U=false;
+            }
+        }
+        return prop;
+    }
+
+    public void addStateProperty(int src, Object i) {
+        if (prop==null){
+            prop=initStateProperty();
+        }
+        int a = se.nomProp.indexOf(i);
+        if(a!=-1){
+            ArrayList<Boolean> T = prop.get(a);
+            Boolean U = T.get(src);
+            if(U==false){
+               U=true;
+            }
+        }
+        else System.out.println("La propriété n'éxiste pas");
+
+    }
 
     public enum type {
         INT,
