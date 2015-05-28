@@ -9,6 +9,7 @@ import java.util.*;
  * Created by User on 06/05/15.
  */
 public class Systeme {
+
     String[] nomSousSysteme = new String[0];
     Systeme[] sousSysteme = new Systeme[0];
     private Integer nbEtat = 0;
@@ -19,6 +20,7 @@ public class Systeme {
     public ArrayList<ArrayList<ArrayList<Integer>>> transEtiq;
     private type type;
     public SystemeElem se;
+    public ArrayList<ArrayList<Object>> saveSynchro;
 
 
     public Systeme(Systeme s){
@@ -34,6 +36,29 @@ public class Systeme {
     public Systeme(SystemeElem s){
         this.se = s;
     }
+
+    public Systeme(int nbState,Object[] property) {
+        int nbVarState = nbState;
+        this.etat = new ArrayList<Integer>();
+        for (int i = 0; i < nbVarState; i++) {
+            this.etat.add(i);
+            this.se.nomProp.add(property[i]);
+        }
+
+
+
+    }
+/*
+    public Systeme(int nbState,ArrayList property) {
+        int nbVarState = nbState;
+        this.etat = new ArrayList<Integer>();
+        for (int i = 0; i < nbVarState; i++) {
+            this.etat.add(i);
+        }
+
+        this.se.nomProp = property;
+
+    }*/
 
     public ArrayList succ (Object i){//nouvelle version
         int x,u;
@@ -248,6 +273,19 @@ public class Systeme {
             }
         }
         else System.out.println("La propriété n'éxiste pas");
+
+    }
+
+    public void addProp(Object o) {
+        if (o == null && !se.nomProp.contains('*')) {
+            se.nomProp.add('*');
+        } else if (o != null && !se.nomProp.contains(o)) {
+            se.nomProp.add(o);
+        }
+    }
+
+    public void saveSynchro (ArrayList<Object> synch){
+        saveSynchro.add(synch);
 
     }
 

@@ -3,7 +3,7 @@ package Systeme;
 import java.util.ArrayList;
 
 public class SystemeElem{
-    public ArrayList<Boolean> nomProp;
+    public ArrayList<Object> nomProp;
     public ArrayList<Object> nomEtiq;
 
     public SystemeElem (SystemeElem s){
@@ -15,5 +15,7 @@ public class SystemeElem{
         return this.nomEtiq;
 
     }
+
+
 }
 

@@ -24,11 +24,10 @@ Automaton res;
 static HashMap<String,Automaton> table = new HashMap<String,Automaton>();
 */
 @members {
-
   Systeme resS;
-
+  Produit P;
   static HashMap<String,Systeme> tableS = new HashMap<String,Systeme>();
-
+  static HashMap<String,Produit> table = new HashMap<String,Produit>();
 
   public static void parserString(String s) throws Exception {
     CharStream input = new ANTLRInputStream(s);
@@ -145,27 +144,30 @@ commande : (i=ID
 //---------------------------------------------
 
 systeme : '[' p=propS ']' '{' e=etatS
+//à modifier
   {
-      resS= new Systeme($e.val,$p.val.toArray(new String[]{}));
+      resS= new Systeme($e.val,$p.val.toArray(new Object[]{}));
   }
   initS etatPropS* transitionS* '}'
-  {
+  /*{
           resS.reduce();
-  }
+  }*/
   ;
 
-propS  returns [ArrayList<String> val]://on ne s'y interesse pas de suite
-(    {$val = new ArrayList<String>();}
+propS  returns [ArrayList<Object> val]://on ne s'y interesse pas de suite
+(    {$val = new ArrayList<Object>();}//précedemment String et non Object
 
 |
-    i0=ID
+    i0=ID //première ligne au dessous semble obligatoire,si non à modofer
   {
-    $val = new ArrayList<String>();
+    $val = new ArrayList<Object>();
     $val.add($i0.text);
+    resS.addProp($i0.text);
   }
    (',' i1=ID
   {
     $val.add($i1.text);
+    resS.addProp($i1.text);
   }
    )*
    )
@@ -245,7 +247,7 @@ transitionS: n0=NUM '->' n1=NUM //fonction addTransition associé réalisé. Aucune
 }
 ';';
 
-synchro  : '<' i0=ID  i1=ID // pas de modification ici dans l'imédiat.
+synchro  : '<' i0=ID  i1=ID
 {
   ArrayList<Systeme> sys = new ArrayList<Systeme>();
   ArrayList<String> nom = new ArrayList<String>();
@@ -257,14 +259,15 @@ synchro  : '<' i0=ID  i1=ID // pas de modification ici dans l'imédiat.
   sys.add(tableS.get($i2.text));
   nom.add($i3.text);
 }
-)*
+)*//.toArray(new Systeme[]{})
 {
-  resS = new Systeme(nom.toArray(new String[]{}), sys.toArray(new Systeme[]{}));
+  P = new Produit(nom.toArray(new String[]{}), sys.toArray(new Systeme[]{}));
 }
 '>' '{' vecteur* '}'
-{
+/*{
      resS.reduce();
 }
+;*/
 ;
 //modif à réaliser. premier try
 
@@ -280,8 +283,11 @@ vecteur : {
   synchro.add($i1.text);
 }
 )* '>'
-{
+/*{
 resS.addTransition(synchro);
+}*/
+{
+resS.saveSynchro(synchro);
 }
 ';'
 ;

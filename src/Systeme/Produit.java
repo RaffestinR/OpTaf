@@ -18,12 +18,12 @@ public class Produit{
 
     public Produit(Produit P){
         S=P.S;
-        etatP=etatP(P);
-        initP=initP(P);
-        transP=transP(P);
-        //propP=propP(P);
-        this.se.nomEtiq=nomEtiqP(P);
-        //this.se.nomProp=nomPropP(P);
+        etatP=etatP(S);
+        initP=initP(S);
+        transP=transP(S);
+        //propP=propP(S);
+        this.se.nomEtiq=nomEtiqP(S);
+        //this.se.nomProp=nomPropP(S);
         nbSyst=P.S.size();
     }
 
@@ -32,20 +32,20 @@ public class Produit{
         nbSyst=P.size();
     }
 
-    public ArrayList initP(Produit P){
+    public ArrayList initP(ArrayList<Systeme> S){
         int X=1,Y,cpt,x,u,v;
         Systeme A;
         ArrayList<ArrayList> I = new ArrayList();
         ArrayList J = new ArrayList();
         int K;
         for(x=0;x<nbSyst;x++){
-            A=P.S.get(x);
+            A=S.get(x);
             X=X/(A.init.size());
         }
         Y=X;
         for(x=0;x<nbSyst;x++){
             cpt=0;
-            A=P.S.get(x);
+            A=S.get(x);
             while(cpt<Y){
                 for(v=0;v<A.init.size();u++){
                     for(u=0;u<X;u++){
@@ -79,22 +79,22 @@ public class Produit{
         return etatNouveau;
     }
 
-    public ArrayList etatP (Produit P){//si possible trier du plus grand au plus petit, et vice et versa
+    public ArrayList etatP (ArrayList<Systeme> S){//si possible trier du plus grand au plus petit, et vice et versa
         Systeme X = null;
         int x;
-        X.etat=etatP(P.S.get(0),P.S.get(1));
-        for(x=2;x<P.S.size();x++){
-            X.etat=etatP(X,P.S.get(x));
+        X.etat=etatP(S.get(0),S.get(1));
+        for(x=2;x<S.size();x++){
+            X.etat=etatP(X,S.get(x));
         }
         return X.etat;
     }
 
-    public ArrayList nomEtiqP(Produit P){
+    public ArrayList nomEtiqP(ArrayList<Systeme> S){
         int x,y;
         ArrayList L = new ArrayList();
-        for(x=0;x<P.S.size();x++){
+        for(x=0;x<S.size();x++){
             ArrayList currentList;
-            currentList = P.S.get(x).se.nomEtiq;
+            currentList = S.get(x).se.nomEtiq;
             for (y=0; y<currentList.size(); y++){
                 if (! L.contains(currentList.get(y))){
                     L.add(currentList.get(y));
@@ -117,30 +117,30 @@ public class Produit{
 
         */
     //n'est plus utile
-    public ArrayList<ArrayList<Integer>> tradSynchro (Produit P){
+    public ArrayList<ArrayList<Integer>> tradSynchro (ArrayList<Systeme> S){
        ArrayList<ArrayList<Integer>> F= new ArrayList();
        ArrayList<Integer> G= new ArrayList();
        int x,y;
 
-       for(x=0;x<P.synchro.size();x++){
-           ArrayList currentList = P.synchro.get(x);
+       for(x=0;x<synchro.size();x++){
+           ArrayList currentList = synchro.get(x);
            for(y=0;y<currentList.size();y++){
-               G.add(P.S.get(y).se.nomEtiq.indexOf(currentList.get(y)));
+               G.add(S.get(y).se.nomEtiq.indexOf(currentList.get(y)));
            }
            F.add(G);
        }
        return F;
    }
 
-    public ArrayList<ArrayList<ArrayList<Integer>>> remplir(Produit P){
+    public ArrayList<ArrayList<ArrayList<Integer>>> remplir(ArrayList<Systeme> S){
         ArrayList<ArrayList<ArrayList<Integer>>> J = new ArrayList();
 
         ArrayList<Integer> I = new ArrayList();
         I.add(-1);
         int x=0,y=0;
-        while (x<P.se.nomEtiq.size()){ // attention sens boucle
+        while (x<se.nomEtiq.size()){ // attention sens boucle
             ArrayList<ArrayList<Integer>> K = J.get(x);
-            while(y<P.etatP.size()){
+            while(y<etatP.size()){
                 ArrayList<Integer> L = K.get(y);
                 L=I;
             }
@@ -150,7 +150,7 @@ public class Produit{
 
     //Attention, cette version ne prend pas encore en compte le cas suivant:
     //exemple:0->1[a]; 0->2[a]
-    public ArrayList transP (Produit P){
+    public ArrayList transP (ArrayList<Systeme> S){
         Object etiq=0;
         int x, y, z, A, eti, F, mark, u;
         Object Y;
@@ -190,9 +190,9 @@ public class Produit{
                     }
                 }
                 if(mark < nbSyst){//
-                    F = P.etatP.indexOf(D);
-                    eti = P.se.nomEtiq.indexOf(etiq);
-                    G = P.transP.get(eti);
+                    F = etatP.indexOf(D);
+                    eti = se.nomEtiq.indexOf(etiq);
+                    G = transP.get(eti);
                     H= (ArrayList) G.get(x);
                     if (H == L){
                         H.remove(-1);
@@ -211,9 +211,37 @@ public class Produit{
     }
 */
 
-    public void addTransition(ArrayList sync) {
-        synchro.add(sync);
+    public void recupSynchro(ArrayList sync) {
+        if (this.S.get(0).saveSynchro!=null) {
+            synchro = this.S.get(0).saveSynchro;
+        }
     }
+
+    public Produit(String[] nom, Systeme[] systeme){//surement des rajout à faire
+        ArrayList L = new ArrayList();
+        nbSyst = systeme.length;
+        for(int i=0;i<nbSyst;i++){
+            S.get(i).nomSousSysteme[0]=nom[i];
+            S.get(i).sousSysteme[0]=systeme[i];
+            L.add(systeme[i]);
+        }
+        initP = initP(L);
+        etatP = etatP(L);
+        transP = transP(L);
+        //propP = propP(L);
+        se.nomEtiq = nomEtiqP(L);
+        //se.nomProp = nomPropP(L);
+
+    }
+
+    /*public Produit(ArrayList<String> nom, ArrayList syst){
+        S=syst;
+        for(int i=0;i<nom.size();i++){
+            S.get(i).nomSousSysteme=nom.get(i);
+
+        }
+
+    }*/
 
    /* public void addTransition(ArrayList sync, String l) {
         assert (synchro.length == this.sousSysteme.length);

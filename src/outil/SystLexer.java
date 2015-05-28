@@ -82,11 +82,10 @@ public class SystLexer extends Lexer {
 	}
 
 
-
 	  Systeme resS;
-
+	  Produit P;
 	  static HashMap<String,Systeme> tableS = new HashMap<String,Systeme>();
-
+	  static HashMap<String,Produit> table = new HashMap<String,Produit>();
 
 	  public static void parserString(String s) throws Exception {
 	    CharStream input = new ANTLRInputStream(s);
