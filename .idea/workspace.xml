@@ -34,9 +34,11 @@
       <file leaf-file-name="Systeme.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/systeme/Systeme.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="138.61539">
-              <caret line="30" column="27" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
-              <folding />
+            <state vertical-scroll-proportion="-17.538462">
+              <caret line="64" column="35" selection-start-line="64" selection-start-column="35" selection-end-line="64" selection-end-column="35" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -45,7 +47,7 @@
         <entry file="file://$PROJECT_DIR$/outil/SystParser.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+              <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -84,8 +86,8 @@
       <file leaf-file-name="Syst.g4" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/outil/Syst.g4">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8854314">
-              <caret line="209" column="3" selection-start-line="209" selection-start-column="3" selection-end-line="209" selection-end-column="3" />
+            <state vertical-scroll-proportion="-0.6053748">
+              <caret line="154" column="23" selection-start-line="154" selection-start-column="23" selection-end-line="154" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -133,8 +135,8 @@
         <option value="$PROJECT_DIR$/systeme/Produit.java" />
         <option value="$PROJECT_DIR$/systeme/Main.java" />
         <option value="$PROJECT_DIR$/outil/SystParser.java" />
-        <option value="$PROJECT_DIR$/outil/Syst.g4" />
         <option value="$PROJECT_DIR$/systeme/SystemeElem.java" />
+        <option value="$PROJECT_DIR$/outil/Syst.g4" />
         <option value="$PROJECT_DIR$/systeme/Systeme.java" />
       </list>
     </option>
@@ -705,12 +707,12 @@
       <workItem from="1432804173103" duration="91000" />
       <workItem from="1432804304333" duration="3036000" />
       <workItem from="1432817451158" duration="5476000" />
-      <workItem from="1432883360529" duration="10137000" />
+      <workItem from="1432883360529" duration="11653000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="153682000" />
+    <option name="totallyTimeSpent" value="155198000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="886" extended-state="6" />
@@ -811,7 +813,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -869,7 +873,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1017,23 +1023,25 @@
     <entry file="file://$PROJECT_DIR$/outil/SystParser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/systeme/Systeme.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="138.61539">
-          <caret line="30" column="27" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
-          <folding />
+        <state vertical-scroll-proportion="-17.538462">
+          <caret line="64" column="35" selection-start-line="64" selection-start-column="35" selection-end-line="64" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/outil/Syst.g4">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8854314">
-          <caret line="209" column="3" selection-start-line="209" selection-start-column="3" selection-end-line="209" selection-end-column="3" />
+        <state vertical-scroll-proportion="-0.6053748">
+          <caret line="154" column="23" selection-start-line="154" selection-start-column="23" selection-end-line="154" selection-end-column="23" />
           <folding />
         </state>
       </provider>

@@ -42,9 +42,9 @@ public class Systeme {
     public Systeme(int nbState,Object[] property) {
         nbEtat = nbState;
         etat(nbEtat);
-        this.etat = new ArrayList<Integer>();
+        //this.etat = new ArrayList<Integer>();
         for (int i = 0; i < nbEtat; i++) {
-            this.etat.add(i);
+            //this.etat.add(i);
             this.se.nomProp.add(property[i]);
         }
 
