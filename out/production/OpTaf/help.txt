@@ -1,0 +1,10 @@
+Liste des commandes :
+> todot <formule> ;;
+> <identificateur> = <formule> ;;
+> help ;;
+> quit ;;
+
+formule  ::= automate | identificateur 
+	 | formule '&&' formule
+	 | formule '[' variable '<-' formule, ... ']'
+	 | 'E' '.' variable formule

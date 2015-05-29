@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="OpTaf">
+    <output-path>$PROJECT_DIR$/out/artifacts/OpTaf</output-path>
+    <root id="archive" name="OpTaf.jar">
+      <element id="module-output" name="OpTaf" />
+      <element id="file-copy" path="$PROJECT_DIR$/help.txt" />
+      <element id="extracted-dir" path="$USER_HOME$/lib/antlr-4.5-complete.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
