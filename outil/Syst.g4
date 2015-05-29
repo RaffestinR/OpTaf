@@ -1,7 +1,9 @@
 grammar Syst;
 
 options {
+
   language = Java;
+
 }
 
 @header {
@@ -14,15 +16,6 @@ options {
 
 }
 
-/* @lexer::header{ package outil;
-  import bdd.*;
-  import mso.*;
-  import systeme.*;
-}
-
-Automaton res;
-static HashMap<String,Automaton> table = new HashMap<String,Automaton>();
-*/
 @members {
   Systeme resS;
   Produit P;
@@ -59,29 +52,18 @@ static HashMap<String,Automaton> table = new HashMap<String,Automaton>();
 
 commandes : (commande ';;')*;
 
-commande : (i=ID
-
-  (
-          '='
-
-
-
-
-
-              ( systeme
-              {
-                  tableS.put($i.text,resS);
-              }
-              | synchro
-              {
-                  table.put($i.text,resS);
-              }
-              )
-
+commande : (i=ID   '='
+          ( systeme
+          {
+            tableS.put($i.text,resS);
+          }
+          | synchro
+          {
+            table.put($i.text,P);
+          }
+          )
 
     )
-  )
-
   |
   'quit'
   | 'todot' f=fichier i2=ID
@@ -161,7 +143,8 @@ systeme : '[' p=propS ']' '{' e=etatS
           resS.reduce();
   }*/
   ;
-
+//resS.addProp($i0.text);
+//resS.addProp($i1.text);
 propS  returns [ArrayList<Object> val]://on ne s'y interesse pas de suite
 (    {$val = new ArrayList<Object>();}//précedemment String et non Object
 
@@ -170,12 +153,12 @@ propS  returns [ArrayList<Object> val]://on ne s'y interesse pas de suite
   {
     $val = new ArrayList<Object>();
     $val.add($i0.text);
-    resS.addProp($i0.text);
+
   }
    (',' i1=ID
   {
     $val.add($i1.text);
-    resS.addProp($i1.text);
+
   }
    )*
    )

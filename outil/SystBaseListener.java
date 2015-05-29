@@ -1,4 +1,4 @@
-// Generated from C:/Users/User/Desktop/OpTaf/outil\Syst.g4 by ANTLR 4.5
+// Generated from C:/Users/User/OpTaf/outil\Syst.g4 by ANTLR 4.5
 
   package outil;
   import systeme.*;
