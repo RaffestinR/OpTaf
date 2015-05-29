@@ -134,7 +134,7 @@ commande : (i=ID   '='
 //---------------------------------------------
 
 systeme : '[' p=propS ']' '{' e=etatS
-//à modifier
+
   {
       resS= new Systeme($e.val,$p.val.toArray(new Object[]{}));
   }

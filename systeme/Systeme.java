@@ -20,7 +20,7 @@ public class Systeme {
 
     public ArrayList<ArrayList<ArrayList<Integer>>> transEtiq = new ArrayList();;
     private type type;
-    public SystemeElem se;
+    public SystemeElem se = new SystemeElem();
 
 
     public Systeme(Systeme s){
@@ -31,16 +31,19 @@ public class Systeme {
         this.init = s.init;
         this.prop = s.prop;
         this.transEtiq=s.transEtiq;
+        this.se=s.se;
     }
-
+//inutile
+ /*
     public Systeme(SystemeElem s){
         this.se = s;
-    }
+    }*/
 
     public Systeme(int nbState,Object[] property) {
-        int nbVarState = nbState;
+        nbEtat = nbState;
+        etat(nbEtat);
         this.etat = new ArrayList<Integer>();
-        for (int i = 0; i < nbVarState; i++) {
+        for (int i = 0; i < nbEtat; i++) {
             this.etat.add(i);
             this.se.nomProp.add(property[i]);
         }
@@ -59,6 +62,13 @@ public class Systeme {
         this.se.nomProp = property;
 
     }*/
+    public void etat (int nbState){
+        ArrayList L = new ArrayList();
+        for(int i=0; i<nbState ;i++){
+            L.add(i);
+        }
+        etat=L;
+    }
 
     public ArrayList succ (Object i){//nouvelle version
         int x,u;
