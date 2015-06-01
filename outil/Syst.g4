@@ -189,29 +189,35 @@ initS :'init' '=' n0=NUM
   ;
 
 etatPropS: n=NUM//on ne s'y interesse pas de suite
-  {
+  {System.out.println("\n etatPropS Debut(g4) :");
+  System.out.println(" se.nomProp(g4) : " + resS.se.nomProp);
     int s = Integer.parseInt($n.text);
     if (!resS.isState(s))
         System.err.println(s + " n'est pas un état.");
   }
   '=' i0=ID
-  {
-    if (resS.isProp($i0.text))
+  {System.out.println("Object (g4) : " + $i0.text);
+
+    if (resS.isProp($i0.text)){
+      System.out.println("addStateProperty Debut(g4)");
         resS.addStateProperty(s,$i0.text);
+      System.out.println("addStateProperty Fin(g4) \n");  }
     else
         System.err.println($i0.text + " n'est pas déclaré comme propriété.");
+        System.out.println("etatPropS Fin(g4) : \n");
   }
+
   (',' i1=ID
   {
-    if (resS.isProp($i1.text))
-        resS.addStateProperty(s,$i1.text);
+    if (resS.isProp($i1.text)){
+        resS.addStateProperty(s,$i1.text);}
     else
         System.err.println($i1.text + " n'est pas déclaré comme propriété.");
   }
   )* ';';
 
 transitionS: n0=NUM '->' n1=NUM //fonction addTransition associé réalisé. Aucune modif apporté ici.
-{
+{System.out.println("transitionS Debut(g4) : \n");
   int src = Integer.parseInt($n0.text);
   int tgt = Integer.parseInt($n1.text);
   boolean id = false;
@@ -223,9 +229,13 @@ transitionS: n0=NUM '->' n1=NUM //fonction addTransition associé réalisé. Aucune
 
 }
 ('[' i0=ID
-{
+{ System.out.println("\n" + "addTransitionS Debut(g4) : ");
+  System.out.println("resS : " + resS);
   id = true;
   resS.addTransition(src,tgt,$i0.text);
+  System.out.println("resS : " + resS);
+  System.out.println("addTransitionS fin(g4) : \n");
+  System.out.println("transitionS Fin(g4) : \n");
 }
 (',' i1=ID
 {
@@ -235,6 +245,7 @@ transitionS: n0=NUM '->' n1=NUM //fonction addTransition associé réalisé. Aucune
 {
   if (!id)
     resS.addTransition(src,tgt,"*");
+
 }
 ';';
 

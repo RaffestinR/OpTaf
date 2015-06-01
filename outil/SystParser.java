@@ -803,7 +803,8 @@ public class SystParser extends Parser {
 			{
 			setState(139); 
 			((EtatPropSContext)_localctx).n = match(NUM);
-
+			System.out.println("\n etatPropS Debut(g4) :");
+			  System.out.println(" se.nomProp(g4) : " + resS.se.nomProp);
 			    int s = Integer.parseInt((((EtatPropSContext)_localctx).n!=null?((EtatPropSContext)_localctx).n.getText():null));
 			    if (!resS.isState(s))
 			        System.err.println(s + " n'est pas un état.");
@@ -812,11 +813,15 @@ public class SystParser extends Parser {
 			match(T__1);
 			setState(142); 
 			((EtatPropSContext)_localctx).i0 = match(ID);
+			System.out.println("Object (g4) : " + (((EtatPropSContext)_localctx).i0!=null?((EtatPropSContext)_localctx).i0.getText():null));
 
-			    if (resS.isProp((((EtatPropSContext)_localctx).i0!=null?((EtatPropSContext)_localctx).i0.getText():null)))
+			    if (resS.isProp((((EtatPropSContext)_localctx).i0!=null?((EtatPropSContext)_localctx).i0.getText():null))){
+			      System.out.println("addStateProperty Debut(g4)");
 			        resS.addStateProperty(s,(((EtatPropSContext)_localctx).i0!=null?((EtatPropSContext)_localctx).i0.getText():null));
+			      System.out.println("addStateProperty Fin(g4) \n");  }
 			    else
 			        System.err.println((((EtatPropSContext)_localctx).i0!=null?((EtatPropSContext)_localctx).i0.getText():null) + " n'est pas déclaré comme propriété.");
+			        System.out.println("etatPropS Fin(g4) : \n");
 			  
 			setState(149);
 			_errHandler.sync(this);
@@ -829,8 +834,8 @@ public class SystParser extends Parser {
 				setState(145); 
 				((EtatPropSContext)_localctx).i1 = match(ID);
 
-				    if (resS.isProp((((EtatPropSContext)_localctx).i1!=null?((EtatPropSContext)_localctx).i1.getText():null)))
-				        resS.addStateProperty(s,(((EtatPropSContext)_localctx).i1!=null?((EtatPropSContext)_localctx).i1.getText():null));
+				    if (resS.isProp((((EtatPropSContext)_localctx).i1!=null?((EtatPropSContext)_localctx).i1.getText():null))){
+				        resS.addStateProperty(s,(((EtatPropSContext)_localctx).i1!=null?((EtatPropSContext)_localctx).i1.getText():null));}
 				    else
 				        System.err.println((((EtatPropSContext)_localctx).i1!=null?((EtatPropSContext)_localctx).i1.getText():null) + " n'est pas déclaré comme propriété.");
 				  
@@ -895,7 +900,7 @@ public class SystParser extends Parser {
 			match(T__17);
 			setState(156); 
 			((TransitionSContext)_localctx).n1 = match(NUM);
-
+			System.out.println("transitionS Debut(g4) : \n");
 			  int src = Integer.parseInt((((TransitionSContext)_localctx).n0!=null?((TransitionSContext)_localctx).n0.getText():null));
 			  int tgt = Integer.parseInt((((TransitionSContext)_localctx).n1!=null?((TransitionSContext)_localctx).n1.getText():null));
 			  boolean id = false;
@@ -914,9 +919,13 @@ public class SystParser extends Parser {
 				match(T__9);
 				setState(159); 
 				((TransitionSContext)_localctx).i0 = match(ID);
-
+				 System.out.println("\n" + "addTransitionS Debut(g4) : ");
+				  System.out.println("resS : " + resS);
 				  id = true;
 				  resS.addTransition(src,tgt,(((TransitionSContext)_localctx).i0!=null?((TransitionSContext)_localctx).i0.getText():null));
+				  System.out.println("resS : " + resS);
+				  System.out.println("addTransitionS fin(g4) : \n");
+				  System.out.println("transitionS Fin(g4) : \n");
 
 				setState(166);
 				_errHandler.sync(this);
@@ -945,6 +954,7 @@ public class SystParser extends Parser {
 
 			  if (!id)
 			    resS.addTransition(src,tgt,"*");
+
 
 			setState(173); 
 			match(T__15);
