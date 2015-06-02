@@ -2,5 +2,8 @@ digraph system {
 _0[label="", shape=none ];
 _0->0;
 0->1 [label= "a"];
-1->0 [label= "c"];
+1->2 [label= "b"];
+2->2 [label= "c"];
+2->3 [label= "d"];
+3->0 [label= "e"];
 }

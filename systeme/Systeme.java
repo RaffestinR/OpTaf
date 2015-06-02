@@ -270,100 +270,93 @@ public class Systeme {
 //    }
 
     public void ajoutEtiqTrans (){
-        System.out.println("\n" + "ajoutEtiq Debut : ");
+//        System.out.println("\n" + "ajoutEtiq Debut : ");
         ArrayList<ArrayList<Integer>> L = new ArrayList();
         ArrayList<Integer> K = new ArrayList();
-        System.out.println("K : " + K);
+//        System.out.println("K : " + K);
         K.add(-1);
-        System.out.println("K : " + K);
-        System.out.println("L : " + L);
+//        System.out.println("K : " + K);
+//        System.out.println("L : " + L);
         for (int x = 0 ; x < etat.size() ; x++){
             L.add(K);
-            System.out.println("L["+x+"] : " + L);
+//            System.out.println("L["+x+"] : " + L);
         }
-        System.out.println("transEtiq AV : " + transEtiq);
+//        System.out.println("transEtiq AV : " + transEtiq);
         transEtiq.add(L);
-        System.out.println("transEtiq AP : " + transEtiq);
-        System.out.println("ajoutEtiq Fin : \n");
+//        System.out.println("transEtiq AP : " + transEtiq);
+//        System.out.println("ajoutEtiq Fin : \n");
     }
 
     public void addTransition(int src, int tgt, Object l) {
-        System.out.println("\n" + "    addTransition Debut : ");
-        System.out.println("transEtiq AV : " + transEtiq);
-//        if(transEtiq.isEmpty()){
-//            initTrans(this);
-//            System.out.println("transEtiq AP : " + transEtiq);
-//        }
-
+//        System.out.println("\n" + "    addTransition Debut : ");
+//        System.out.println("transEtiq AV : " + transEtiq);
         int a = se.nomEtiq.indexOf(l);
-        System.out.println("étiquette a : " + a);
+//        System.out.println("étiquette a : " + a);
 
         if(a==-1){
-            System.out.println("se.nomEtiq : " + se.nomEtiq);
+//            System.out.println("se.nomEtiq : " + se.nomEtiq);
             se.nomEtiq.add(l);
-            System.out.println("se.nomEtiq : " + se.nomEtiq);
+//            System.out.println("se.nomEtiq : " + se.nomEtiq);
             a = se.nomEtiq.indexOf(l);
-            System.out.println("index étiquette a : " + a);
+//            System.out.println("index étiquette a : " + a);
             ajoutEtiqTrans();
         }
 
-        System.out.println("transEtiq : " + transEtiq);
+//        System.out.println("transEtiq : " + transEtiq);
         ArrayList<ArrayList<Integer>> T = transEtiq.get(a);
-        System.out.println("transEtiq.get(a) : " + transEtiq.get(a));
-        System.out.println("T : " + T);
+//        System.out.println("transEtiq.get(a) : " + transEtiq.get(a));
+//        System.out.println("T : " + T);
         int b = etat.indexOf(src);
-        System.out.println("index etat b : " + b);
+//        System.out.println("index etat b : " + b);
         if(b==-1){
-            System.out.println("etat : " + etat);
+//            System.out.println("etat : " + etat);
             etat.add(src);
-            System.out.println("etat : " + etat);
+//            System.out.println("etat : " + etat);
             b = etat.indexOf(src);
-            System.out.println("index etat b : " + b);
+//            System.out.println("index etat b : " + b);
         }
-        System.out.println("AV U : ");
-        System.out.println("T : " + T);
-        System.out.println("T.get(b) : " + T.get(b));
+//        System.out.println("AV U : ");
+//        System.out.println("T : " + T);
+//        System.out.println("T.get(b) : " + T.get(b));
         ArrayList<Integer> U = new ArrayList<Integer>();
-        System.out.println("U ini : " + U);
+//        System.out.println("U ini : " + U);
         ArrayList<Integer> L = new ArrayList();
         L.add(-1);
-        System.out.println("L : " + L);
-        System.out.println(" /n premier problème ici /n");
+//        System.out.println("L : " + L);
+//        System.out.println(" /n premier problème ici /n");
 
 
         if(T.get(b).equals(L)){
-            System.out.println("T1 : " + T);
+//            System.out.println("T1 : " + T);
             T.remove(b);
-            System.out.println("T2 : " + T);
+//            System.out.println("T2 : " + T);
             ArrayList K = new ArrayList();
-            System.out.println("K : " + K);
+//            System.out.println("K : " + K);
             K.add(tgt);
-            System.out.println("K : " + K);
+//            System.out.println("K : " + K);
             T.add(b, K);
-            System.out.println("T3 : " + T);
+//            System.out.println("T3 : " + T);
         }
         else{
-            System.out.println("U : " + U);
+//            System.out.println("U : " + U);
             U = T.get(b);
-
-            System.out.println("U AV : " + U);
-            System.out.println("U contient? : " + U.contains(tgt));
+//            System.out.println("U AV : " + U);
+//            System.out.println("U contient? : " + U.contains(tgt));
             if(!U.contains(tgt)){
-
                 U.add(tgt);
-                System.out.println("U : " + U);
-                System.out.println("T4 : " + T);
+//                System.out.println("U : " + U);
+//                System.out.println("T4 : " + T);
                 T.remove(b);
-                System.out.println("T5 : " + T);
+//                System.out.println("T5 : " + T);
                 T.add(b, U);
-                System.out.println("T6 : " + T);
-                System.out.println("U AP : " + U);
+//                System.out.println("T6 : " + T);
+//                System.out.println("U AP : " + U);
             }
             transEtiq.remove(a);
             transEtiq.add(a,T);
         }
-        System.out.println("transEtiq Final : " + transEtiq);
-        System.out.println("    addTransition Fin : \n");
+//        System.out.println("transEtiq Final : " + transEtiq);
+//        System.out.println("    addTransition Fin : \n");
 
 //        U = T.get(b);
 //        System.out.println("U AV : " + U);
@@ -375,81 +368,42 @@ public class Systeme {
 //        System.out.println("addTransition Fin : \n");
     }
 
-//    public void addTransition(int src, int tgt, String l) {
-//        System.out.println("\n" + "addTransition Debut : ");
-//        System.out.println("transEtiq AV : " + transEtiq);
-//        if(transEtiq.isEmpty()){
-//            initTrans(this);
-//            System.out.println("transEtiq AP : " + transEtiq);
-//        }
-//
-//        int a = se.nomEtiq.indexOf(l);
-//        System.out.println("étiquette a : " + a);
-//
-//        if(a==-1){
-//            System.out.println("se.nomEtiq : " + se.nomEtiq);
-//            se.nomEtiq.add(l);
-//            System.out.println("se.nomEtiq : " + se.nomEtiq);
-//            a = se.nomEtiq.indexOf(l);
-//            System.out.println("index étiquette a : " + a);
-//        }
-//        System.out.println("transEtiq : " + transEtiq);
-//        ArrayList<ArrayList<Integer>> T = transEtiq.get(a);
-//        System.out.println("T : " + T);
-//        int b = etat.indexOf(src);
-//        System.out.println("index etat b : " + b);
-//        if(b==-1){
-//            System.out.println("etat : " + etat);
-//            etat.add(src);
-//            System.out.println("etat : " + etat);
-//            b = etat.indexOf(src);
-//            System.out.println("index etat b : " + b);
-//        }
-//        ArrayList<Integer> U = T.get(b);
-//        System.out.println("U AV : " + U);
-//        System.out.println("U contient? : " + U.contains(tgt));
-//        if(!U.contains(tgt)){
-//            U.add(tgt);
-//            System.out.println("U AP : " + U);
-//        }
-//        System.out.println("addTransition Fin : \n");
-//    }
-
     public boolean isProp(Object i){
-        System.out.println("\n    isProp Debut");
-        System.out.println("se.nomProp : " + se.nomProp);
-        System.out.println("Object : " +i);
-        /*if (this.se.nomEtiq.contains(i)){
-            System.out.println("true");
-            return true;
-        }else System.out.println("false");
-            return false;*/
-        System.out.println("contains : " + this.se.nomProp.contains(i)+ "\n");
-
-        System.out.println("    isProp Fin \n");
+//        System.out.println("\n    isProp Debut");
+//        System.out.println("se.nomProp : " + se.nomProp);
+//        System.out.println("Object : " +i);
+//        System.out.println("contains : " + this.se.nomProp.contains(i)+ "\n");
+//        System.out.println("    isProp Fin \n");
         return this.se.nomProp.contains(i);
     }
 
     public ArrayList<ArrayList<Boolean>> initStateProperty() {
 
-        System.out.println("\n    initStateProperty Debut");
+//        System.out.println("\n    initStateProperty Debut");
         int x,y;
-        System.out.println("etat : " + etat);
-        System.out.println("nomProp : " + se.nomProp);
+//        System.out.println("etat : " + etat);
+//        System.out.println("nomProp : " + se.nomProp);
 
         ArrayList<ArrayList<Boolean>> T = new ArrayList<ArrayList<Boolean>>();
-        for(x=0;x<etat.size();x++){
+//        for(x=0;x<etat.size();x++){
+//            ArrayList<Boolean> S = new ArrayList();
+//            for(y=0;y<se.nomProp.size();y++){
+//                S.add(false);
+//            }
+//            T.add(S);
+//        }
+        for(x=0;x<se.nomProp.size();x++){
             ArrayList<Boolean> S = new ArrayList();
-            for(y=0;y<se.nomProp.size();y++){
+            for(y=0;y<etat.size();y++){
                 S.add(false);
             }
             T.add(S);
         }
-        System.out.println("T : " + T);
-        System.out.println("prop AV : " + prop);
+//        System.out.println("T : " + T);
+//        System.out.println("prop AV : " + prop);
         prop = T;
-        System.out.println("prop AP : " + prop + "\n");
-        System.out.println("    initStateProperty Fin \n");
+//        System.out.println("prop AP : " + prop + "\n");
+//        System.out.println("    initStateProperty Fin \n");
         return prop;
     }
 
@@ -461,10 +415,11 @@ public class Systeme {
             prop=initStateProperty();
             System.out.println("prop AP(if) : "+ prop);
         }
-        else {System.out.println("prop (else) "+ prop);}
-        int a = se.nomProp.indexOf(i);
-        System.out.println("index prop : "+ a+ "\n");
-        if(a!=-1){
+        else {
+            System.out.println("prop (else) "+ prop);}
+            int a = se.nomProp.indexOf(i);
+            System.out.println("index prop : "+ a+ "\n");
+            if(a!=-1){
             ArrayList<Boolean> T = prop.get(a);
             prop.remove(a);
             Boolean U = T.get(src);
