@@ -202,7 +202,7 @@ public class Systeme {
             L=transEtiq.get(x);
             for (y=0;y<L.size();y++) {
                 M = (ArrayList) L.get(y);
-                if (L.get(y)!= J)
+                if (!L.get(y).equals(J))
                     for (z = 0; z < M.size(); z++) {
                         res.append(y + "->" + M.get(z) + " [label= \"" + se.nomEtiq.get(x) + "\"];\n");
                 }
@@ -288,7 +288,7 @@ public class Systeme {
     }
 
     public void addTransition(int src, int tgt, Object l) {
-        System.out.println("\n" + "addTransition Debut : ");
+        System.out.println("\n" + "    addTransition Debut : ");
         System.out.println("transEtiq AV : " + transEtiq);
 //        if(transEtiq.isEmpty()){
 //            initTrans(this);
@@ -325,10 +325,13 @@ public class Systeme {
         System.out.println("T.get(b) : " + T.get(b));
         ArrayList<Integer> U = new ArrayList<Integer>();
         System.out.println("U ini : " + U);
-        ArrayList L = new ArrayList();
+        ArrayList<Integer> L = new ArrayList();
         L.add(-1);
         System.out.println("L : " + L);
-        if(T.get(b)==L){
+        System.out.println(" /n premier problème ici /n");
+
+
+        if(T.get(b).equals(L)){
             System.out.println("T1 : " + T);
             T.remove(b);
             System.out.println("T2 : " + T);
@@ -359,7 +362,8 @@ public class Systeme {
             transEtiq.remove(a);
             transEtiq.add(a,T);
         }
-        System.out.println("addTransition Fin : \n");
+        System.out.println("transEtiq Final : " + transEtiq);
+        System.out.println("    addTransition Fin : \n");
 
 //        U = T.get(b);
 //        System.out.println("U AV : " + U);
@@ -412,7 +416,7 @@ public class Systeme {
 //    }
 
     public boolean isProp(Object i){
-        System.out.println("\n isProp Debut");
+        System.out.println("\n    isProp Debut");
         System.out.println("se.nomProp : " + se.nomProp);
         System.out.println("Object : " +i);
         /*if (this.se.nomEtiq.contains(i)){
@@ -422,13 +426,13 @@ public class Systeme {
             return false;*/
         System.out.println("contains : " + this.se.nomProp.contains(i)+ "\n");
 
-        System.out.println("isProp Fin \n");
+        System.out.println("    isProp Fin \n");
         return this.se.nomProp.contains(i);
     }
 
     public ArrayList<ArrayList<Boolean>> initStateProperty() {
 
-        System.out.println("\n initStateProperty Debut");
+        System.out.println("\n    initStateProperty Debut");
         int x,y;
         System.out.println("etat : " + etat);
         System.out.println("nomProp : " + se.nomProp);
@@ -445,12 +449,12 @@ public class Systeme {
         System.out.println("prop AV : " + prop);
         prop = T;
         System.out.println("prop AP : " + prop + "\n");
-        System.out.println(" initStateProperty Debut \n");
+        System.out.println("    initStateProperty Fin \n");
         return prop;
     }
 
     public void addStateProperty(int src, Object i) {
-        System.out.println("\n addStateProperty Debut");
+        System.out.println("\n    addStateProperty Debut");
         System.out.println("prop : "+ prop+ "\n");
         if (prop.isEmpty()){
             System.out.println("prop AV(if) " + prop);
