@@ -189,23 +189,19 @@ initS :'init' '=' n0=NUM
   ;
 
 etatPropS: n=NUM//on ne s'y interesse pas de suite
-  {System.out.println("\n   etatPropS Debut(g4) :");
-  System.out.println("se.nomProp(g4) : " + resS.se.nomProp);
+  {
     int s = Integer.parseInt($n.text);
     if (!resS.isState(s))
         System.err.println(s + " n'est pas un état.");
   }
   '=' i0=ID
-  {System.out.println("Object (g4) : " + $i0.text);
-
+  {
     if (resS.isProp($i0.text)){
-      System.out.println("    addStateProperty Debut(g4)");
-        resS.addStateProperty(s,$i0.text);
-      System.out.println("    addStateProperty Fin(g4) \n");  }
+      resS.addStateProperty(s,$i0.text);
+    }
     else
         System.err.println($i0.text + " n'est pas déclaré comme propriété.");
-        System.out.println("etatPropS Fin(g4) : \n");
-  }
+    }
 
   (',' i1=ID
   {
@@ -217,7 +213,7 @@ etatPropS: n=NUM//on ne s'y interesse pas de suite
   )* ';';
 
 transitionS: n0=NUM '->' n1=NUM //fonction addTransition associé réalisé. Aucune modif apporté ici.
-{System.out.println("   transitionS Debut(g4) : \n");
+{
   int src = Integer.parseInt($n0.text);
   int tgt = Integer.parseInt($n1.text);
   boolean id = false;
@@ -229,13 +225,9 @@ transitionS: n0=NUM '->' n1=NUM //fonction addTransition associé réalisé. Aucune
 
 }
 ('[' i0=ID
-{ System.out.println("\n" + "   addTransitionS Debut(g4) : ");
-  System.out.println("resS : " + resS);
+{
   id = true;
   resS.addTransition(src,tgt,$i0.text);
-  System.out.println("resS : " + resS);
-  System.out.println("    addTransitionS fin(g4) : \n");
-  System.out.println("    transitionS Fin(g4) : \n");
 }
 (',' i1=ID
 {
@@ -250,20 +242,29 @@ transitionS: n0=NUM '->' n1=NUM //fonction addTransition associé réalisé. Aucune
 ';';
 
 synchro  : '<' i0=ID  i1=ID
-{
+{System.out.println("\n -  Synchro Debut(g4)  - \n");
   ArrayList<Systeme> sys = new ArrayList<Systeme>();
+  System.out.println("system : " + sys);
   ArrayList<String> nom = new ArrayList<String>();
+  System.out.println("nomSystem : " + nom);
   sys.add(tableS.get($i0.text));
+  System.out.println("system : " + sys);
   nom.add($i1.text);
+  System.out.println("nomSystem : " + nom);
 }
 (',' i2=ID  i3=ID
 {
   sys.add(tableS.get($i2.text));
+  System.out.println("system : " + sys);
   nom.add($i3.text);
+  System.out.println("nomSystem : " + nom);
 }
 )*//.toArray(new Systeme[]{})
-{
+{System.out.println("system : " + sys);
+   System.out.println("nomSystem : " + nom);
   P = new Produit(nom.toArray(new String[]{}), sys.toArray(new Systeme[]{}));
+  System.out.println("Produit : " + P);
+  System.out.println("\n -  Synchro Phase 2(g4)  - \n");
 }
 '>' '{' vecteur* '}'
 /*{
@@ -274,23 +275,33 @@ synchro  : '<' i0=ID  i1=ID
 //modif à réaliser. premier try
 
 vecteur : {
+System.out.println("\n -- Vecteur Debut(g4) -- \n");
   ArrayList<Object> synchro = new ArrayList<Object>();
+  System.out.println("synchro : " + synchro);
   }
 '<' i0=ID
-{
+{System.out.println("synchro : " + synchro);
   synchro.add($i0.text);
+  System.out.println("synchro : " + synchro);
 }
 (',' i1=ID
-{
+{System.out.println("synchro : " + synchro);
   synchro.add($i1.text);
+  System.out.println("synchro : " + synchro);
 }
 )* '>'
 /*{
 resS.addTransition(synchro);
 }*/
 {
+System.out.println("synchro : " + synchro);
+System.out.println("\n ---Synchro(fct) Debut(g4)--- \n");
 P.synchro(synchro);
+System.out.println("\n ---Synchro(fct) Fin(g4)--- \n");
+System.out.println("\n -- Vecteur Fin(g4) -- \n");
+System.out.println("\n -  Synchro Fin(g4)  - \n");
 }
+
 ';'
 ;
 

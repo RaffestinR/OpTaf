@@ -408,17 +408,18 @@ public class Systeme {
     }
 
     public void addStateProperty(int src, Object i) {
-        System.out.println("\n    addStateProperty Debut");
-        System.out.println("prop : "+ prop+ "\n");
+//        System.out.println("\n    addStateProperty Debut");
+//        System.out.println("prop : "+ prop+ "\n");
         if (prop.isEmpty()){
-            System.out.println("prop AV(if) " + prop);
+//            System.out.println("prop AV(if) " + prop);
             prop=initStateProperty();
-            System.out.println("prop AP(if) : "+ prop);
+//            System.out.println("prop AP(if) : "+ prop);
         }
         else {
-            System.out.println("prop (else) "+ prop);}
+//            System.out.println("prop (else) "+ prop);
+             }//ceci est assez étrange, mais celà fonctionne
             int a = se.nomProp.indexOf(i);
-            System.out.println("index prop : "+ a+ "\n");
+//            System.out.println("index prop : "+ a+ "\n");
             if(a!=-1){
             ArrayList<Boolean> T = prop.get(a);
             prop.remove(a);
@@ -431,8 +432,8 @@ public class Systeme {
             prop.add(a,T);
         }
         else System.out.println("La propri�t� n'�xiste pas");
-        System.out.println("Final : " + prop + "\n");
-        System.out.println("initStateProperty Fin \n");
+//        System.out.println("Final : " + prop + "\n");
+//        System.out.println("initStateProperty Fin \n");
 
     }
 
