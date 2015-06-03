@@ -267,42 +267,48 @@ synchro  : '<' i0=ID  i1=ID
   System.out.println("\n -  Synchro Phase 2(g4)  - \n");
 }
 '>' '{' vecteur* '}'
-/*{
-     resS.reduce();
+{
+     System.out.println("transP AV(g4) : " +P.transP);
+     P.transP(sys);
+     System.out.println("transP AV(g4) : " +P.transP);
+     System.out.println("\n -  Synchro Fin(g4)  - \n");
 }
-;*/
 ;
+
 //modif à réaliser. premier try
 
 vecteur : {
 System.out.println("\n -- Vecteur Debut(g4) -- \n");
   ArrayList<Object> synchro = new ArrayList<Object>();
-  System.out.println("synchro : " + synchro);
+  System.out.println("synchro ini : " + synchro);
   }
 '<' i0=ID
-{System.out.println("synchro : " + synchro);
+{System.out.println("synchro AV : " + synchro);
   synchro.add($i0.text);
-  System.out.println("synchro : " + synchro);
+  System.out.println("synchro AP : " + synchro);
 }
 (',' i1=ID
-{System.out.println("synchro : " + synchro);
+{System.out.println("synchro AV : " + synchro);
   synchro.add($i1.text);
-  System.out.println("synchro : " + synchro);
+  System.out.println("synchro AP : " + synchro);
 }
-)* '>'
+)*
+'>'
+
 /*{
 resS.addTransition(synchro);
 }*/
 {
-System.out.println("synchro : " + synchro);
+System.out.println("synchro Final : " + synchro);
 System.out.println("\n ---Synchro(fct) Debut(g4)--- \n");
 P.synchro(synchro);
 System.out.println("\n ---Synchro(fct) Fin(g4)--- \n");
 System.out.println("\n -- Vecteur Fin(g4) -- \n");
-System.out.println("\n -  Synchro Fin(g4)  - \n");
+
 }
 
 ';'
+
 ;
 
 
