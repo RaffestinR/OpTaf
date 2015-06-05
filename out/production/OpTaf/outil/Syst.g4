@@ -70,9 +70,12 @@ commande : (i=ID   '='
   {
 
       Systeme s = tableS.get($i2.text);
+      Produit p = table.get($i2.text);
       if (s!=null)
         ecrire($f.val,s.toDot());
-      else {
+      else if (p!=null){
+        ecrire($f.val,p.toDot());
+      }else{
         System.err.println("La variable " + $i2.text + " n'existe pas.");
       }
 

@@ -446,12 +446,22 @@ public class Produit{
         ArrayList L;
         ArrayList M;
         for (x=0;x<transP.size();x++){
+            System.out.println("x : " + x);
             L=transP.get(x);
+            System.out.println("L : " + L);
             for (y=0;y<L.size();y++) {
+                System.out.println("y : " + y);
                 M = (ArrayList) L.get(y);
+                System.out.println("M : " + M);
+                System.out.println("L.get(y) : " + L.get(y));
                 if (L.get(y)!= J)
                     for (z = 0; z < M.size(); z++) {
-                        res.append(y + "->" + M.get(z) + " [label= \"" + se.nomEtiq.get(x) + "\"];\n");
+                        System.out.println("z : " + z);
+                        System.out.println("M.get(z) : " + M.get(z));
+                        if (!M.get(z).equals(J)){
+                            res.append(z + "->" + M.get(z) + " [label= \"" + se.nomEtiq.get(x) + "\"];\n");
+                        }
+
                     }
             }
         }

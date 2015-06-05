@@ -169,16 +169,16 @@ public class Systeme {
         StringBuilder res = new StringBuilder();
         res.append("digraph system {\n");
 
-        recToDotState(res);
+        recToDotStateP(res);
 
-        toDotTransition(res);
+        toDotTransitionP(res);
 
         res.append("}\n");
         return res.toString();
     }
 
 
-    private void recToDotState(StringBuilder res) {
+    private void recToDotStateP(StringBuilder res) {
         int x;
         if (init == null) {
             return;
@@ -192,7 +192,7 @@ public class Systeme {
             }
     }
 
-    private void toDotTransition(StringBuilder res) {
+    private void toDotTransitionP(StringBuilder res) {
         int x, y, z;
         ArrayList J = new ArrayList();
         J.add(-1);

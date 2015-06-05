@@ -273,9 +273,12 @@ public class SystParser extends Parser {
 
 
 				      Systeme s = tableS.get((((CommandeContext)_localctx).i2!=null?((CommandeContext)_localctx).i2.getText():null));
+				      Produit p = table.get((((CommandeContext)_localctx).i2!=null?((CommandeContext)_localctx).i2.getText():null));
 				      if (s!=null)
 				        ecrire(((CommandeContext)_localctx).f.val,s.toDot());
-				      else {
+				      else if (p!=null){
+				        ecrire(((CommandeContext)_localctx).f.val,p.toDot());
+				      }else{
 				        System.err.println("La variable " + (((CommandeContext)_localctx).i2!=null?((CommandeContext)_localctx).i2.getText():null) + " n'existe pas.");
 				      }
 
