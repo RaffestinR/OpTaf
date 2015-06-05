@@ -1,6 +1,8 @@
 digraph system {
-_0[label="", shape=none ];
-_0->0;
+_2[label="", shape=none ];
+_2->2;
 0->1 [label= "b"];
-1->0 [label= "c"];
+1->2 [label= "a"];
+2->0 [label= "f"];
+2->2 [label= "c"];
 }

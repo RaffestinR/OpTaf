@@ -37,58 +37,58 @@ public class Produit{
     }
 //inutil
     public void initSe(){
-        System.out.println("se : " + se);
-        System.out.println("se.nomEtiq AV : " + se.nomEtiq);
-        System.out.println("se.nomProp AV : " + se.nomProp);
+//        System.out.println("se : " + se);
+//        System.out.println("se.nomEtiq AV : " + se.nomEtiq);
+//        System.out.println("se.nomProp AV : " + se.nomProp);
         se.nomEtiq = new ArrayList();
-        System.out.println("se.nomEtiq AV : " + se.nomEtiq);
+        //System.out.println("se.nomEtiq AV : " + se.nomEtiq);
         se.nomProp = new ArrayList();
-        System.out.println("se.nomProp AV : " + se.nomProp);
+        //System.out.println("se.nomProp AV : " + se.nomProp);
     }
 
     public Produit(String[] nom, Systeme[] systeme){//surement des rajout � faire
-        System.out.println("--Produit Debut--");
+        //System.out.println("--Produit Debut--");
         ArrayList L = new ArrayList();
-        System.out.println("L : " + L);
+        //System.out.println("L : " + L);
         nbSyst = systeme.length;
-        System.out.println("nbSyst : " + nbSyst);
+        //System.out.println("nbSyst : " + nbSyst);
         Collections.addAll(S, systeme);
-        System.out.println("S : " + S);
+        //System.out.println("S : " + S);
         Collections.addAll(nomSysteme, nom);
-        System.out.println("nomSysteme : " + nomSysteme);
+        //System.out.println("nomSysteme : " + nomSysteme);
 
 //        for(int i=0;i<nbSyst;i++){//ici � modifier comme les fonctions dans systeme (S
 //            S.get(i).nomSousSysteme[0]=nom[i];
 //            S.get(i).sousSysteme[0]=systeme[i];
 //            L.add(systeme[i]);
 //        }
-        System.out.println("    -ensemble des fonctions- ");
-        System.out.println("etatP AV : " + etatP);
+        //System.out.println("    -ensemble des fonctions- ");
+        //System.out.println("etatP AV : " + etatP);
         etatP = etatP(S);
-        System.out.println("etatP AP : " + etatP);
-        System.out.println("initP AV : " + initP);
+        //System.out.println("etatP AP : " + etatP);
+        //System.out.println("initP AV : " + initP);
         initP = initP(S);
-        System.out.println("initP AP : " + initP);
+        //System.out.println("initP AP : " + initP);
 //        System.out.println("etatP AV : " + etatP);
 //        etatP = etatP(S);
 //        System.out.println("etatP AP : " + etatP);
 
         //propP = propP(L);
        // initSe();
-        System.out.println("se.nomEtiq AV : " + se.nomEtiq);
+        //System.out.println("se.nomEtiq AV : " + se.nomEtiq);
         this.se.nomEtiq = nomEtiqP(S);
-        System.out.println("se.nomEtiq AP : " + se.nomEtiq);
-        System.out.println("transP AV : " + transP);
+        //System.out.println("se.nomEtiq AP : " + se.nomEtiq);
+        //System.out.println("transP AV : " + transP);
         remplir(S);
-        System.out.println("transP AP : " + transP);
-        System.out.println("--Produit Fin--");
+       // System.out.println("transP AP : " + transP);
+        //System.out.println("--Produit Fin--");
 
     }
 
     public void synchro (ArrayList<Object> synch){
-        System.out.println("synchro AP : " + synchro);
+        //System.out.println("synchro AP : " + synchro);
         synchro.add(synch);
-        System.out.println("synchro AP : " + synchro);
+        //System.out.println("synchro AP : " + synchro);
     }
 
     public ArrayList initP(ArrayList<Systeme> S){
@@ -210,7 +210,7 @@ public class Produit{
    }
 
     public void remplir(ArrayList<Systeme> S){
-        System.out.println("--remplir Debut--");
+        //System.out.println("--remplir Debut--");
         ArrayList<Integer> I = new ArrayList();
         I.add(-1);
         int x=0,y=0;
@@ -221,12 +221,12 @@ public class Produit{
             }
             transP.add(K);
         }
-        System.out.println("transP Final : " +transP);
-        System.out.println("--remplir Fin--");
+        //System.out.println("transP Final : " +transP);
+        //System.out.println("--remplir Fin--");
     }
 
     public ArrayList transP (ArrayList<Systeme> S){
-        System.out.println("--transP Debut--");
+        //System.out.println("--transP Debut--");
         Object etiq=0;
         int x, y, z, A, eti = -1, F, mark, u;
         Object Y;
@@ -239,67 +239,67 @@ public class Produit{
         ArrayList L = new ArrayList();
         L.add(-1);
         Systeme Z;
-        System.out.println("etatP : " +etatP);
+        //System.out.println("etatP : " +etatP);
         for(y=0;y<synchro.size();y++){//on boncle sur les synchro afin de les faire toute
             ArrayList H = new ArrayList();
             VS = synchro.get(y);//VS est un vecteur de synchro choisis dans l'ordre
-            System.out.println("VS[y] [" + y + "] : " +VS +"\n");
+            //System.out.println("VS[y] [" + y + "] : " +VS +"\n");
             for(x=0;x<etatP.size();x++){//on boucle sur les �tat cons�cutivement
                 mark=0;
                 D = new ArrayList();
                 X = etatP.get(x); //X est un �tat choisis dans l'ordre
-                System.out.println("=========X[x] [" + x + "] : " +X+"=========");
+                //System.out.println("=========X[x] [" + x + "] : " +X+"=========");
                 for(z=0;z<nbSyst;z++){//on boucle sur le nombre de systeme afin de trouver l'�lem suivant cde chaque coord
-                    System.out.println("[y][x][z] : "+"y=" + y +"  x="+x+"  z="+z);
+                    //System.out.println("[y][x][z] : "+"y=" + y +"  x="+x+"  z="+z);
                     Y =  VS.get(z);//Y est une valeur du vecteur de synchro choisis dans l'ordre
-                    System.out.println("Y AV : " + Y);
+                    //System.out.println("Y AV : " + Y);
                     if((YT == null) && !se.nomEtiq.contains(Y)){
-                        System.out.println("Y AV/AP : " + Y);
+                        //System.out.println("Y AV/AP : " + Y);
                         YT=Y;
-                        System.out.println("Y AP : " + Y);
-                        System.out.println("YT : " + YT);
-                        System.out.println("§§§§§§§§§§§§§§§§§§§§§§§§§§§");
-                    }else System.out.println("!!!!!!!!!!!!!!!!!!!!!");
-                    System.out.println("=========");
-                    System.out.println("Y[z] [" + z + "] : " +Y);
+                        //System.out.println("Y AP : " + Y);
+                        //System.out.println("YT : " + YT);
+                        //System.out.println("§§§§§§§§§§§§§§§§§§§§§§§§§§§");
+                    }//else System.out.println("!!!!!!!!!!!!!!!!!!!!!");
+                    //System.out.println("=========");
+                    //System.out.println("Y[z] [" + z + "] : " +Y);
                     Z = S.get(z);//on pick le systeme associ�
                     A = Z.se.nomEtiq.indexOf(Y);//A vaut la valeur de l'�tiq dans son propre se.etiq
-                    System.out.println("A[z] [" + z + "] : " +A);
+                    //System.out.println("A[z] [" + z + "] : " +A);
                     if (A!=-1){//donc elle existe
                         etiq=Y;//???????
                     }
 
                     C = X.get(z);//prend la coordonn� (int) associ� sur l'�tat choisis
-                    System.out.println("C[z] [" + z + "] : " +C);
+                    //System.out.println("C[z] [" + z + "] : " +C);
                     if(A!=-1) {
                         B = Z.transEtiq.get(A);//r�cup�re la transisiton avec �tiquette a pour les systeme choisis
                         E = B.get(C);//pick la case concern�
-                        System.out.println("E[z] [" + z + "] : " +E);
+                        //System.out.println("E[z] [" + z + "] : " +E);
                         if(E.equals(L)){
                             mark++;
-                            System.out.println("Y" + Y);
-                            System.out.println("YT" + YT);
+                            //System.out.println("Y" + Y);
+                            //System.out.println("YT" + YT);
                             if(Y.equals(YT)) {
-                                System.out.println("T R U E equals");
+                                //System.out.println("T R U E equals");
                                 D.add(C);//mais oui c'est clair
                             }else{
-                                System.out.println("F A L S E equals");
+                                //System.out.println("F A L S E equals");
                                 D.add(-1);
                             }
-                            System.out.println("D(if(if))[z] [" + z + "] : " + D);
+                            //System.out.println("D(if(if))[z] [" + z + "] : " + D);
                         }else{
                             D.add(E.get(0));//mais oui c'est clair
-                            System.out.println("D(if(else))[z] [" + z + "] : " + D);
+                            //System.out.println("D(if(else))[z] [" + z + "] : " + D);
                         }
                     }else {
                         mark++;
-                        System.out.println("Y" + Y);
-                        System.out.println("YT" + YT);
+                        //System.out.println("Y" + Y);
+                       // System.out.println("YT" + YT);
                         if(Y.equals(YT)) {
-                            System.out.println("T R U E equals");
+                            //System.out.println("T R U E equals");
                             D.add(C);//mais oui c'est clair
                         }else{
-                            System.out.println("F A L S E equals");
+                            //System.out.println("F A L S E equals");
                             D.add(-1);
                         }
                     }
@@ -309,10 +309,10 @@ public class Produit{
                     F = etatP.indexOf(D);//r�cup�re l'indice de l'�tat afin d'avoir le changement de "notation"
 
                     F2.add(F);
-                    System.out.println("F[mark] [" + mark + "] : " + F);
-                    System.out.println("F2[mark] [" + mark + "] : " + F2);
+                    //System.out.println("F[mark] [" + mark + "] : " + F);
+                    //System.out.println("F2[mark] [" + mark + "] : " + F2);
                     eti = se.nomEtiq.indexOf(etiq);//r�cup�re l'indice de l'�tiquette dans le celle du produit
-                    System.out.println("transP : " + transP);
+                    //System.out.println("transP : " + transP);
                 } else {
                     F2.add(-1);
                 }
@@ -323,8 +323,8 @@ public class Produit{
             transP.remove(eti);
             transP.add(eti,G);
         }
-        System.out.println("--transP Fin--");
-        System.out.println("transP : " + transP);
+        //System.out.println("--transP Fin--");
+        //System.out.println("transP : " + transP);
         return transP;
     }
 
@@ -446,18 +446,18 @@ public class Produit{
         ArrayList L;
         ArrayList M;
         for (x=0;x<transP.size();x++){
-            System.out.println("x : " + x);
+            //System.out.println("x : " + x);
             L=transP.get(x);
-            System.out.println("L : " + L);
+           // System.out.println("L : " + L);
             for (y=0;y<L.size();y++) {
-                System.out.println("y : " + y);
+                //System.out.println("y : " + y);
                 M = (ArrayList) L.get(y);
-                System.out.println("M : " + M);
-                System.out.println("L.get(y) : " + L.get(y));
+                //System.out.println("M : " + M);
+                //System.out.println("L.get(y) : " + L.get(y));
                 if (L.get(y)!= J)
                     for (z = 0; z < M.size(); z++) {
-                        System.out.println("z : " + z);
-                        System.out.println("M.get(z) : " + M.get(z));
+                        //System.out.println("z : " + z);
+                        //System.out.println("M.get(z) : " + M.get(z));
                         if (!M.get(z).equals(J)){
                             res.append(z + "->" + M.get(z) + " [label= \"" + se.nomEtiq.get(x) + "\"];\n");
                         }

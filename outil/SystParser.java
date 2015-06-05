@@ -1008,15 +1008,11 @@ public class SystParser extends Parser {
 			((SynchroContext)_localctx).i0 = match(ID);
 			setState(177); 
 			((SynchroContext)_localctx).i1 = match(ID);
-			System.out.println("\n -  Synchro Debut(g4)  - \n");
+
 			  ArrayList<Systeme> sys = new ArrayList<Systeme>();
-			  System.out.println("system : " + sys);
 			  ArrayList<String> nom = new ArrayList<String>();
-			  System.out.println("nomSystem : " + nom);
 			  sys.add(tableS.get((((SynchroContext)_localctx).i0!=null?((SynchroContext)_localctx).i0.getText():null)));
-			  System.out.println("system : " + sys);
 			  nom.add((((SynchroContext)_localctx).i1!=null?((SynchroContext)_localctx).i1.getText():null));
-			  System.out.println("nomSystem : " + nom);
 
 			setState(185);
 			_errHandler.sync(this);
@@ -1032,9 +1028,7 @@ public class SystParser extends Parser {
 				((SynchroContext)_localctx).i3 = match(ID);
 
 				  sys.add(tableS.get((((SynchroContext)_localctx).i2!=null?((SynchroContext)_localctx).i2.getText():null)));
-				  System.out.println("system : " + sys);
 				  nom.add((((SynchroContext)_localctx).i3!=null?((SynchroContext)_localctx).i3.getText():null));
-				  System.out.println("nomSystem : " + nom);
 
 				}
 				}
@@ -1042,11 +1036,8 @@ public class SystParser extends Parser {
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			System.out.println("system : " + sys);
-			   System.out.println("nomSystem : " + nom);
+
 			  P = new Produit(nom.toArray(new String[]{}), sys.toArray(new Systeme[]{}));
-			  System.out.println("Produit : " + P);
-			  System.out.println("\n -  Synchro Phase 2(g4)  - \n");
 
 			setState(189); 
 			match(T__19);
@@ -1069,10 +1060,7 @@ public class SystParser extends Parser {
 			setState(197); 
 			match(T__12);
 
-			     System.out.println("transP AV(g4) : " +P.transP);
 			     P.transP(sys);
-			     System.out.println("transP AV(g4) : " +P.transP);
-			     System.out.println("\n -  Synchro Fin(g4)  - \n");
 
 			}
 		}
@@ -1116,17 +1104,15 @@ public class SystParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 
-			System.out.println("\n -- Vecteur Debut(g4) -- \n");
+
 			  ArrayList<Object> synchro = new ArrayList<Object>();
-			  System.out.println("synchro ini : " + synchro);
 			  
 			setState(201); 
 			match(T__18);
 			setState(202); 
 			((VecteurContext)_localctx).i0 = match(ID);
-			System.out.println("synchro AV : " + synchro);
+
 			  synchro.add((((VecteurContext)_localctx).i0!=null?((VecteurContext)_localctx).i0.getText():null));
-			  System.out.println("synchro AP : " + synchro);
 
 			setState(209);
 			_errHandler.sync(this);
@@ -1138,9 +1124,8 @@ public class SystParser extends Parser {
 				match(T__13);
 				setState(205); 
 				((VecteurContext)_localctx).i1 = match(ID);
-				System.out.println("synchro AV : " + synchro);
+
 				  synchro.add((((VecteurContext)_localctx).i1!=null?((VecteurContext)_localctx).i1.getText():null));
-				  System.out.println("synchro AP : " + synchro);
 
 				}
 				}
@@ -1151,11 +1136,7 @@ public class SystParser extends Parser {
 			setState(212); 
 			match(T__19);
 
-			System.out.println("synchro Final : " + synchro);
-			System.out.println("\n ---Synchro(fct) Debut(g4)--- \n");
 			P.synchro(synchro);
-			System.out.println("\n ---Synchro(fct) Fin(g4)--- \n");
-			System.out.println("\n -- Vecteur Fin(g4) -- \n");
 
 
 			setState(214); 
