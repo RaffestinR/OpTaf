@@ -430,6 +430,7 @@ public class Systeme {
             }
             T.add(src,U);
             prop.add(a,T);
+
         }
         else System.out.println("La propri�t� n'�xiste pas");
 //        System.out.println("Final : " + prop + "\n");

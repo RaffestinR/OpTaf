@@ -1,6 +1,18 @@
 digraph system {
 _8[label="", shape=none ];
 _8->8;
+0 [label= "[0, 0][x.p, x.q]"];
+1 [label= "[1, 0][y.p, x.q]"];
+2 [label= "[2, 0][z.p, x.q]"];
+3 [label= "[3, 0][x.p, x.q]"];
+4 [label= "[0, 1][x.p, y.q]"];
+5 [label= "[1, 1][y.p, y.q]"];
+6 [label= "[2, 1][z.p, y.q]"];
+7 [label= "[3, 1][x.p, y.q]"];
+8 [label= "[0, 2][x.p, z.q]"];
+9 [label= "[1, 2][y.p, z.q]"];
+10 [label= "[2, 2][z.p, z.q]"];
+11 [label= "[3, 2][x.p, z.q]"];
 4->[8] [label= "a"];
 5->[9] [label= "a"];
 6->[10] [label= "a"];

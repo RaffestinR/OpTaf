@@ -22,13 +22,13 @@ public class Produit{
 
     public Produit(Produit P){
         S=P.S;
+        nbSyst=P.S.size();
         etatP=etatP(S);
         initP=initP(S);
+        this.se.nomEtiq=nomEtiqP(S);
+        this.se.nomProp=nomPropP(S);
         transP=transP(S);
         //propP=propP(S);
-        this.se.nomEtiq=nomEtiqP(S);
-        //this.se.nomProp=nomPropP(S);
-        nbSyst=P.S.size();
     }
 
     public Produit(ArrayList<Systeme> P){
@@ -73,11 +73,17 @@ public class Produit{
 //        etatP = etatP(S);
 //        System.out.println("etatP AP : " + etatP);
 
-        //propP = propP(L);
+
        // initSe();
         //System.out.println("se.nomEtiq AV : " + se.nomEtiq);
         this.se.nomEtiq = nomEtiqP(S);
         //System.out.println("se.nomEtiq AP : " + se.nomEtiq);
+        //System.out.println("se.nomProp AV : " + se.nomProp);
+        this.se.nomProp = nomPropP(S);
+        //System.out.println("se.nomProp AP : " + se.nomProp);
+        //System.out.println("propP AV : " + propP);
+        propP(S);
+        //System.out.println("propP AP : " + propP);
         //System.out.println("transP AV : " + transP);
         remplir(S);
        // System.out.println("transP AP : " + transP);
@@ -365,47 +371,87 @@ public class Produit{
 //        System.out.println("T : " + T);
 //        System.out.println("prop AV : " + prop);
         propP = T;
+//        System.out.println("etatP : " + etatP);
+//        System.out.println("prop ini : " + propP);
 //        System.out.println("prop AP : " + prop + "\n");
 //        System.out.println("    initStateProperty Fin \n");
         return propP;
     }
 
-    public void addStatePropertyP(int src, Object i) {
-//        System.out.println("\n    addStateProperty Debut");
-//        System.out.println("prop : "+ prop+ "\n");
+    public void propP(ArrayList<Systeme> S) {
+
+        ArrayList<Boolean> X;
+
+        Boolean C;
+        int cte;
+        Integer A;
+
+       // System.out.println("propP départ : " + propP);
         if (propP.isEmpty()){
-//            System.out.println("prop AV(if) " + prop);
+           // System.out.println("propP av(if) : " + propP);
             propP=initStatePropertyP();
-//            System.out.println("prop AP(if) : "+ prop);
+            //System.out.println("propP ap(if) : " + propP);
+//           /
         }
-        else {
-//            System.out.println("prop (else) "+ prop);
-        }//ceci est assez �trange, mais cel� fonctionne
-        int a = se.nomProp.indexOf(i);
-//            System.out.println("index prop : "+ a+ "\n");
-        if(a!=-1){
-            ArrayList<Boolean> T = propP.get(a);
-            propP.remove(a);
-            Boolean U = T.get(src);
-            T.remove(src);
-            if(U==false){
-                U=true;
-            }
-            T.add(src,U);
-            propP.add(a,T);
-        }
-        else System.out.println("La propri?t? n'?xiste pas");
-//        System.out.println("Final : " + prop + "\n");
+        for(int x=0;x<etatP.size();x++){
+
+            //System.out.println("        ===== x : " + x +" =====");
+//
+//            System.out.println("X : " + X);
+            cte =0;
+            for (int y=0;y<nbSyst;y++){
+                //System.out.println("        ===== y : " + y +" =====");
+                int M = S.get(y).se.nomProp.size()-1;
+
+                for(int z=0;z<S.get(y).se.nomProp.size();z++){
+                    //System.out.println("        ===== z : " + z +" =====");
+                    //System.out.println("        ===== cte : " + cte +"// M : "+M+" // y+z+M*cte : "+(y+z+(M*cte))+"=====");
+                    X = propP.get(y+z+(M*cte));//c'est une ligne de propP
+//
+                    //System.out.println("X : " + X +"etatP.get(x) : "+ etatP.get(x));
+
+                    //A=etatP.get(x).get(y);//une "coordonnée" de l'etat
+                    A=etatP.get(x).get(y);//une "coordonnée" de l'etat
+                    //System.out.println("A : " + A);
+
+                    //System.out.println("prop du systeme y ["+y+"] : " + S.get(y).prop);
+                    //System.out.println("son get associé Z["+y+"] : " + S.get(y).prop.get(z));
+                    //System.out.println("son get associé A["+y+"] : " + S.get(y).prop.get(A));
+                    //C=S.get(y).prop.get(A).get(z);//dan sle systeme y on récupère la valeur du boolean dans son tableau de prop en A,z
+                    C=S.get(y).prop.get(z).get(A);
+                    //System.out.println("C : " + C);
+//
+//                    System.out.println("y + z + (M*cte) : " + test);
+                    if (C==true) {
+                        X.set(x, C);//on modifie X au point y+z+cte
+                    }
+                    //System.out.println("X : " + X);
+                    //System.out.println("propP av : " + propP);
+//
+//                    System.out.println("propP ap : " + propP);
+                }
+                cte++;
+        }}
+
+
+
+        //System.out.println("Final : " + propP + "\n");
 //        System.out.println("initStateProperty Fin \n");
 
     }
 
-    public void addPropP(Object o) {
-        if (o == null && !se.nomProp.contains('*')) {
-            se.nomProp.add('*');
-        } else if (o != null && !se.nomProp.contains(o)) {
-            se.nomProp.add(o);
+    public ArrayList nomPropP(ArrayList<Systeme> S) {
+        ArrayList X = new ArrayList();
+        //System.out.println("X ini : " + X);
+        for (int x =0; x<S.size();x++){
+            //System.out.println("S.get(x).se.nomProp.size() : ["+x+"]" + S.get(x).se.nomProp.size());
+            //System.out.println("S.get(x).se.nomProp : ["+x+"]" + S.get(x).se.nomProp);
+            for (int y=0; y<S.get(x).se.nomProp.size();y++){
+                X.add(S.get(x).se.nomProp.get(y) + "." + nomSysteme.get(x));
+            }
+
         }
+        return X;
     }
 
 
@@ -418,11 +464,38 @@ public class Produit{
 
         recToDotState(res);
 
+        recToDotProp(res);
+
         toDotTransition(res);
 
         res.append("}\n");
         return res.toString();
     }
+
+
+    private void recToDotProp(StringBuilder res) {
+        int x,y,Y=0;
+        Boolean X;
+
+        if (propP == null) {
+            return;
+        }
+
+        if (propP != null) {
+            for (y=0;y<propP.get(0).size();y++){
+                ArrayList L = new ArrayList();
+                for(x=0;x<propP.size();x++) {
+                    X=propP.get(x).get(y);
+                    if(X==true){
+                        L.add(se.nomProp.get(x));
+                        Y = y;
+                    }
+
+
+                }
+                res.append(Y + " [label= \"" + etatP.get(Y) + L +"\"];\n");
+        }
+    }}
 
 
     private void recToDotState(StringBuilder res) {
