@@ -66,9 +66,9 @@ public class Produit{
         //System.out.println("etatP AV : " + etatP);
         etatP = etatP(S);
         //System.out.println("etatP AP : " + etatP);
-        //System.out.println("initP AV : " + initP);
+  //      System.out.println("initP AV : " + initP);
         initP = initP(S);
-        //System.out.println("initP AP : " + initP);
+  //      System.out.println("initP AP : " + initP);
 //        System.out.println("etatP AV : " + etatP);
 //        etatP = etatP(S);
 //        System.out.println("etatP AP : " + etatP);
@@ -97,38 +97,67 @@ public class Produit{
         //System.out.println("synchro AP : " + synchro);
     }
 
-    public ArrayList initP(ArrayList<Systeme> S){
-        int X=1,Y=0,cpt,x,u,v;
-        Systeme A;
-        ArrayList<ArrayList> I = new ArrayList();
-        ArrayList J = new ArrayList();
-        int K;
-        for(x=0;x<nbSyst;x++){
-            A=S.get(x);
-            X=X/(A.init.size());
-        }
-        Y=X;
-        for(x=0;x<nbSyst;x++){
-            A=S.get(x);
-            for(cpt=0;cpt<Y;cpt++){
-                for(v=0;v<A.init.size();v++){
-                    for(u=0;u<X;u++){
-                        if (J==null) {System.out.println("-> if");
-                            J=I.get(cpt);}
-                        J.add(A.init.get(v));
-                        if (!I.contains(J)){
-                        I.add(cpt, J);}
-                    }
+    public ArrayList initP(Systeme S, Systeme T){
+        ArrayList<ArrayList> K = new ArrayList();
+        ArrayList V=new ArrayList();
+        for(int x=0;x<S.init.size();x++) {
+//            if (initP.isEmpty()) {
+//                V.addAll(S.init);
+//                initP=V;
+//            } else {
+            if (V.isEmpty()){
+                V.addAll(S.init);}
+
+                for (int y = 0; y < T.init.size(); y++) {
+                    ArrayList L = new ArrayList();
+                    L.add(V.get(x));
+
+                    L.add(T.init.get(y));
+                    K.add(L);
                 }
-            }
+
+//            }
         }
-        J = new ArrayList();
-        for (x=0;x<I.size();x++){
-            K=etatP.indexOf(I.get(x));
-            J.add(x, K);//J.add(K);
-        }
-        return J;
+        return K;
     }
+
+    public ArrayList initP(ArrayList P, Systeme T){ // à finaliser
+        ArrayList<ArrayList> K = new ArrayList();
+        ArrayList V=new ArrayList();
+        for(int x=0;x<K.size();x++) {
+//            if (initP.isEmpty()) {
+//                V.addAll(S.init);
+//                initP=V;
+//            } else {
+            if (V.isEmpty()){
+                V.addAll(K);}
+
+            for (int y = 0; y < T.init.size(); y++) {
+                ArrayList L = new ArrayList();
+                L.add(V.get(x));
+
+                L.add(T.init.get(y));
+                K.add(L);
+            }
+
+//            }
+        }
+        return K;
+    }
+
+    public ArrayList initP(ArrayList<Systeme> S){
+        ArrayList K = new ArrayList();
+        K=initP(S.get(0),S.get(1));
+        for (int x=2;x<S.size();x++){
+            K=initP(K,S.get(x));
+        }
+        for (int x=0;x<K.size();x++){
+            int i = etatP.indexOf(K.get(x));
+            initP.add(i);
+        }
+        return initP;
+    }
+
 
     public ArrayList etatP(Systeme A, Systeme B){
         ArrayList<ArrayList<Integer>> etatNouveau = new ArrayList();
@@ -506,7 +535,7 @@ public class Produit{
 
         if (initP != null) {
             for(x=0;x<initP.size();x++) {
-                res.append("_" + initP.get(x) + "[label=\"\", shape=none ];\n");
+                res.append("_" + initP.get(x) + "[[label= \"" + etatP.get(initP.get(x)) +" shape=none\"];\n");
                 res.append("_" + initP.get(x) + "->" + initP.get(x) + ";\n");
             }
         }
