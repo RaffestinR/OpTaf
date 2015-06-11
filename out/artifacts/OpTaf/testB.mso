@@ -10,8 +10,9 @@ S1 = [x,y,z]{
 	2->2 [c];
 	2->3 [d];
 	3->0 [e];
+	3->3 [e];
 };;
-todot S1.dot S1;;
+todot B1.dot S1;;
 
 S2 = [x,y,z] {
 	 etat=3;
@@ -25,7 +26,7 @@ S2 = [x,y,z] {
 	 2->2 [c];
 };;
 
-todot S2.dot S2;;
+todot B2.dot S2;;
 
 systeme = <S1 p, S2 q> {
 	<a,_>;
@@ -38,5 +39,4 @@ systeme = <S1 p, S2 q> {
 	<c,c>;
 };;
 
-todot syst.dot systeme;;
-quit;;
+todot B.dot systeme;;

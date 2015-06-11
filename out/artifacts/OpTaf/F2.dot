@@ -1,8 +1,0 @@
-digraph system {
-_0[label="", shape=none ];
-_0->0;
-0->1 [label= "inc"];
-1->2 [label= "inc"];
-1->0 [label= "dec"];
-2->1 [label= "dec"];
-}

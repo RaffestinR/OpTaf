@@ -4,11 +4,12 @@ S1 = [x,y] {
 	0=x;
 	1=y;
 	0->1 [a];
+
 	1->0 [c];
 	1->1 [d];
 };;
 
-todot S1.dot S1;;
+todot A1.dot S1;;
 
 S2 = [x,z] {
 	 etat=2;
@@ -16,11 +17,12 @@ S2 = [x,z] {
 	 0=x;
 	 1=z;
 	 0->1 [b];
+	 	0->0 [a];
 	 1->0 [c];
 	 1->1 [d];
 };;
 
-todot S2.dot S2;;
+todot A2.dot S2;;
 
 systeme = <S1 p, S2 q> {
 	<a,_>;
@@ -30,7 +32,7 @@ systeme = <S1 p, S2 q> {
 	};;
 
 
-todot syst.dot systeme;;
+todot A.dot systeme;;
 
-quit;;
+
 

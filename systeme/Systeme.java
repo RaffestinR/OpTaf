@@ -59,17 +59,7 @@ public class Systeme {
 
 
     }
-/*
-    public Systeme(int nbState,ArrayList property) {
-        int nbVarState = nbState;
-        this.etat = new ArrayList<Integer>();
-        for (int i = 0; i < nbVarState; i++) {
-            this.etat.add(i);
-        }
 
-        this.se.nomProp = property;
-
-    }*/
     public void etat (int nbState){
         ArrayList L = new ArrayList();
         for(int i=0; i<nbState ;i++){
@@ -174,6 +164,7 @@ public class Systeme {
         toDotTransitionP(res);
 
         res.append("}\n");
+        //System.out.println("trans : " + transEtiq);
         return res.toString();
     }
 
@@ -237,37 +228,6 @@ public class Systeme {
     public void addInitState(int s) {
         this.init.add(s);
     }
-
-    /*public void addTransition(int src, int tgt) {
-        addTransition(src, tgt, "*");
-    }*/
-//    public ArrayList<ArrayList<ArrayList<Integer>>> initTrans(Systeme S){
-//        System.out.println("\n" + "initTrans Debut: ");
-//        System.out.println("transEtiq : " + transEtiq);
-//        ArrayList<ArrayList<ArrayList<Integer>>> J = new ArrayList();
-//
-//        ArrayList<Integer> I = new ArrayList();
-//        I.add(-1);
-//        System.out.println("I : " + I);
-//        int x=0,y=0;
-//        System.out.println("se.nomEtiq : " + se.nomEtiq);
-//        System.out.println("etatq : " + etat);
-//        while (x<se.nomEtiq.size()){ // attention sens boucle
-//            ArrayList<ArrayList<Integer>> K = new ArrayList<ArrayList<Integer>>();
-//            while(y<etat.size()){
-//                System.out.println("K AV : " + K);
-//                K.add(I);
-//                System.out.println("K AP : " + K);
-//            }
-//            System.out.println("J AV : " + J);
-//            J.add(K);
-//            System.out.println("J AP : " + J);
-//        }
-//        transEtiq = J;
-//        System.out.println("transEtiq : " + transEtiq);
-//        System.out.println("initTrans Fin: \n");
-//        return transEtiq;
-//    }
 
     public void ajoutEtiqTrans (){
 //        System.out.println("\n" + "ajoutEtiq Debut : ");
