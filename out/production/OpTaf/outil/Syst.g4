@@ -52,7 +52,23 @@ options {
 
 commandes : (commande ';;')*;
 
-commande : (i=ID   '='
+commande : (i=ID
+          '+='
+          {
+            resS = tableS.get($i.text);
+          } j=ID '<-' ctlb=ctlformule
+          {
+            if (resS !=null) {
+              resS.addStateProperty($ctlb.b,$j.text);
+              }
+                else {
+                  System.err.println("La variable " + $i.text + "n'existe pas.");
+                }
+          }
+          |
+
+          '='
+
           ( systeme
           {
             tableS.put($i.text,resS);
