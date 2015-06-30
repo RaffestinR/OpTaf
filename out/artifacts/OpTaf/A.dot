@@ -1,0 +1,31 @@
+digraph system {
+_0[label="", shape=none ];
+_0->0;
+_1[label="", shape=none ];
+_1->1;
+_7[label="", shape=none ];
+_7->7;
+_8[label="", shape=none ];
+_8->8;
+0->1 [label= "p"];
+0->2 [label= "p"];
+0->3 [label= "p"];
+0->4 [label= "p"];
+1->1 [label= "p"];
+3->2 [label= "p"];
+3->5 [label= "p"];
+4->1 [label= "p"];
+4->5 [label= "p"];
+4->6 [label= "p"];
+6->9 [label= "p"];
+8->2 [label= "p"];
+2->3 [label= "np"];
+2->9 [label= "np"];
+5->0 [label= "np"];
+5->6 [label= "np"];
+5->9 [label= "np"];
+7->1 [label= "np"];
+7->3 [label= "np"];
+8->8 [label= "np"];
+9->9 [label= "np"];
+}

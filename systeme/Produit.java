@@ -15,6 +15,7 @@ public class Produit{
     public ArrayList<Integer> initP = new ArrayList();;
     public ArrayList<ArrayList<ArrayList<Integer>>> transP = new ArrayList();;
     public ArrayList<ArrayList<Boolean>> propP = new ArrayList();;
+    public ArrayList<ArrayList<Integer>> pred = new ArrayList();
 
     public SystemeElem se = new SystemeElem();
 
@@ -28,17 +29,12 @@ public class Produit{
         this.se.nomEtiq=nomEtiqP(S);
         this.se.nomProp=nomPropP(S);
         transP=transP(S);
-        //propP=propP(S);
+        propP(S);
     }
 
     public Produit(ArrayList<Systeme> P){
         S=P;
         nbSyst=P.size();
-    }
-//inutil
-    public void initSe(){
-        se.nomEtiq = new ArrayList();
-        se.nomProp = new ArrayList();
     }
 
     public Produit(String[] nom, Systeme[] systeme){
@@ -51,7 +47,9 @@ public class Produit{
         this.se.nomEtiq = nomEtiqP(S);
         this.se.nomProp = nomPropP(S);
         propP(S);
+        System.out.println("transP : " + transP);
         remplir(S);
+        System.out.println("transP : " + transP);
 
     }
 
@@ -168,21 +166,7 @@ public class Produit{
         return L;
     }
 
-    //n'est plus utile
-    public ArrayList<ArrayList<Integer>> tradSynchro (ArrayList<Systeme> S){
-       ArrayList<ArrayList<Integer>> F= new ArrayList();
-       ArrayList<Integer> G= new ArrayList();
-       int x,y;
 
-       for(x=0;x<synchro.size();x++){
-           ArrayList currentList = synchro.get(x);
-           for(y=0;y<currentList.size();y++){
-               G.add(S.get(y).se.nomEtiq.indexOf(currentList.get(y)));
-           }
-           F.add(G);
-       }
-       return F;
-   }
 
     public void remplir(ArrayList<Systeme> S){
         ArrayList<Integer> I = new ArrayList();
@@ -197,7 +181,10 @@ public class Produit{
         }
     }
 
-    public ArrayList transP (ArrayList<Systeme> S){
+
+
+    public ArrayList<ArrayList<ArrayList<Integer>>> transP (ArrayList<Systeme> S){
+        System.out.println("transP : " + transP);
         Object etiq=0;
         int x, y, z, A, eti = -1, F, mark, u;
         Object Y=null;
@@ -330,7 +317,7 @@ public class Produit{
             T.add(H);
             transP.remove(eti);
             transP.add(eti, T);
-        }
+        }System.out.println("transP : " + transP);
         return transP;
     }
 
@@ -392,6 +379,9 @@ public class Produit{
 
 
     public String toDot() {
+        System.out.println("test3");
+        this.test();
+        System.out.println("test4");
         if (initP==null) {
             return "digraph system {\n empty [shape=box]}\n";
         }
@@ -407,7 +397,60 @@ public class Produit{
         res.append("}\n");
         return res.toString();
     }
+    public void test(){
+        //System.out.println("A");
+        System.out.println("etatP : " + etatP);
+        //T2.add(0);System.out.println("T2 : " + T2);
+        ArrayList<Integer> T = new ArrayList();
+        ArrayList<Integer> T2 = new ArrayList();
+        ArrayList<Object> T3 = new ArrayList();
+        ArrayList<Object> T4 = new ArrayList();
+        T.add(1);
+        T2.add(0);System.out.println("T2 : " + T2);
+        succ(T2);
 
+        System.out.println("succ(T2) ===========> " + succ(T2));
+        T2.add(2);System.out.println("T2 : " + T2);
+            succ(T2);System.out.println("succ(T2)2 ===========> " + succ(T2));
+        T3.add(se.nomEtiq.get(0));
+        etiquette(T3);
+       System.out.println("etiquette(T3);[a] ===========> " + etiquette(T3));
+        succ2(T3);System.out.println("succ2 etiq(T3)[a] ===========> " + succ2(T3));
+        T3.add(se.nomEtiq.get(1));
+        etiquette(T3);System.out.println("etiquette(T3)[a,c] ===========> " + etiquette(T3));
+        succ2(T3);System.out.println("succ2 etiq(T3)[a,c] ===========> " + succ2(T3));
+        T4.add(se.nomProp.get(1));
+        succ2(T4);System.out.println("~~~~~~~~~~~~~~~~succ2 prop(T4)[x]~~~~~~~~~~~~~~~~~~~~~~");
+        succ2(T4);System.out.println("succ2 prop(T4)[x] : " + succ2(T4));
+        T4.add(se.nomProp.get(2));
+        succ2(T4);System.out.println("~~~~~~~~~~~~~~~~succ2 prop(T4)[x,z]~~~~~~~~~~~~~~~~~~~~~~");
+        succ2(T4);System.out.println("succ2 prop(T4)[x,z] : " + succ2(T4));
+
+        //System.out.println("B");
+        succ(T);
+        //System.out.println("succ(1)" + succ(T));
+        pred(etatP.size(), 0, 0);
+        ArrayList<Object> TT = new ArrayList();
+        TT.add(se.nomEtiq.get(0));
+        //System.out.println("TT : " + TT);
+
+        //System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~");
+        EX(TT);
+        System.out.println("EX(TT)" + EX(TT));
+        //System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~");
+        AX(TT);
+        System.out.println("AX(TT)" + AX(TT));
+        //System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~");
+        EXAX(TT);
+        System.out.println("EXAX(TT)" + EXAX(TT));
+        //System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~");
+        AXEX(TT);
+        System.out.println("AXEX(TT)" + AXEX(TT));
+
+
+        //System.out.println("pred" + pred);
+
+    }
 
     private void recToDotProp(StringBuilder res) {
         int x,y,Y=0;
@@ -439,7 +482,7 @@ public class Produit{
 
         if (initP != null) {
             for(x=0;x<initP.size();x++) {
-                res.append("_" + initP.get(x) + "[[label= \"" + etatP.get(initP.get(x)) +" shape=none\"];\n");
+                res.append("_" + initP.get(x) + "[label= \"" + etatP.get(initP.get(x)) +" shape=none\"];\n");
                 res.append("_" + initP.get(x) + "->" + initP.get(x) + ";\n");
             }
         }
@@ -468,4 +511,392 @@ public class Produit{
                 }
             }
         }
+
+    public ArrayList<Integer> succ (ArrayList<Integer> I){
+        //System.out.println("-------Succ(int) départ  : ");
+        ArrayList A = new ArrayList();
+        ArrayList T = new ArrayList();
+        ArrayList L = new ArrayList();
+        T.add(-1);
+        for(int x=0; x<I.size();x++){
+
+            for(int y =0; y<transP.size();y++){
+               // System.out.println("x/y :  " + x+"/"+y);
+                //System.out.println("transEtiq  : " + transP);
+                //System.out.println("I  : " + I);
+                //System.out.println("I.get(x)  : " + I.get(x));
+                //System.out.println("transEtiq.get(y);  : " + transP.get(y));
+
+                //System.out.println("transEtiq.get(y).get(0);  : " + transP.get(y).get(0));//le tableau transP semble mal construit
+                A=transP.get(y).get(0);
+//                A=transP.get(y).get(I.get(x));
+                if(!A.equals(T)){
+                  //     System.out.println("L  : " + L);
+                    //L.addAll(A);
+                    //for (int z=0;z<A.size();z++){
+                    //         System.out.println("L / A.get(z) : " + L+" / " +A.get(I.get(x)));
+                        if (!L.contains(A.get(I.get(x))) && !A.get(I.get(x)).equals(T)){
+                            L.add(A.get(I.get(x)));
+                        }
+                      //     System.out.println("L  : " + L);
+                   // }
+                    //System.out.println("L  : " + L);
+                }
+
+            }
+        }System.out.println("succ 2  : " + L);
+        return L;
     }
+
+    public ArrayList<Integer> succ2 (ArrayList<Object> I){
+        //System.out.println("-------Succ2 départ  : ");
+        System.out.println("I  : " + I);
+
+        ArrayList<Integer> A = new ArrayList();
+        ArrayList<Integer> T = new ArrayList();
+        ArrayList L = new ArrayList();
+        T.add(-1);
+//        System.out.println("se.nomEtiq.contains(I.get(0))  : " + se.nomEtiq.contains(I.get(0)));
+//        System.out.println("se.nomProp.contains(I.get(0))  : " + se.nomProp.contains(I.get(0)));
+//        System.out.println("se.nomEtiq.contains(I.get(0)) && se.nomProp.contains(I.get(0))  : " + (se.nomEtiq.contains(I.get(0)) && se.nomProp.contains(I.get(0))));
+        if (se.nomEtiq.contains(I.get(0)) && se.nomProp.contains(I.get(0))){
+            System.out.println("problème lors de la différenciation entre étiquette et propriété");
+        }
+       // System.out.println("nomEtiq" + se.nomEtiq);
+        //System.out.println("transP" + transP);
+        if (se.nomEtiq.contains(I.get(0))){
+
+            for(int x=0;x<I.size();x++) {
+               // System.out.println("x  : " + x);
+                int a = se.nomEtiq.indexOf(I.get(x));
+               // System.out.println("a  : " + a);
+                A=transP.get(a).get(0);
+                //System.out.println("A  : " + A);
+                for(int y=0;y<etatP.size();y++){
+//                    System.out.println("transP  : " + transP);
+//                    System.out.println("transPgx  : " + transP.get(a));
+//                    System.out.println("transPgxg0  : " + transP.get(a).get(0));
+//                    System.out.println("transPgxg0gy  : " + transP.get(a).get(0).get(y));
+//                    System.out.println("A.ghet(y)  : " + A.get(y));
+//                    System.out.println("y  : " + y);
+//                    System.out.println("L  : " + L);
+//                    System.out.println("!A.equals(T) : " + (!A.equals(T) ));
+//                    System.out.println("!L.contains(A.get(y))  : " + (!L.contains(A.get(0))));
+                    //System.out.println("!A.get(y).equals(T) && !L.contains(A.get(y))  : " + (!A.get(0).equals(T) && !L.contains(A.get(y))));
+                    if((!A.equals(T))){
+                       // System.out.println("L  : " + L);
+                        for (int z=0;z<A.size();z++){
+
+                          //  System.out.println("A : " + A.get(0));
+                           // System.out.println("Aget(y)  : " + A.get(z));
+                            if((!L.contains(A.get(z))) ){
+
+                               // System.out.println("(test)  : ");
+
+                                L.add(A.get(z));
+                            }
+                            //System.out.println("L  : " + L);
+                        }
+                    }
+                }
+
+            }System.out.println("verif  : " );
+            //return L;
+
+        }else if (se.nomProp.contains(I.get(0))){
+            System.out.println("verif2  : " );
+            ArrayList<Integer> L2 = new ArrayList();
+            ArrayList<Integer> L3 = new ArrayList();
+            for(int x=0;x<I.size();x++) {
+                int a = se.nomProp.indexOf(I.get(x));
+                //System.out.println("a : "+a);
+                A=transP.get(a).get(0);
+                //System.out.println("A : "+A);
+                for(int y =0;y<A.size();y++){
+                    //System.out.println("prop.get(a).get(y) : "+prop.get(a).get(y));
+                    if(propP.get(a).get(y)){
+                        //System.out.println("L2 : "+L2);
+                        L2.add(y);
+                        //System.out.println("L2 : " + L2);
+                    }
+                }
+                for(int y=0;y<L2.size();y++){
+                    //System.out.println("L : "+L);
+                    L3=succ(L2);
+                    for(int z=0;z<L3.size();z++) {
+                        if (!L.contains(L3.get(z))){
+                            L.add(L3.get(z));
+                        }
+                    }
+                    //System.out.println("L : "+L);
+                }
+            }
+            //System.out.println("L F: "+L);
+            //return L;
+
+        }else System.out.print("Aucune solution possible avec cette entrée");
+        System.out.println("LOLCAT  : ");
+        //Collections.sort(L);
+        L.remove(T);
+        System.out.println("succ 2  : " + L);
+      //  System.out.println("LOL  : ");
+      //  L.remove(-1);
+        return L;
+
+    }
+    public ArrayList<Integer> etiquette(ArrayList<Object> p){
+        //System.out.println("A");
+        ArrayList<Integer> L = new ArrayList();
+        ArrayList T= new ArrayList();
+        T.add(-1);
+        //System.out.println("B p : " + p);
+        for(int x=0;x<p.size();x++){
+            System.out.println("C p.get(x) : " + p.get(x));
+            //System.out.println("se.nomEtiq : " + se.nomEtiq);
+            int a = se.nomEtiq.indexOf(p.get(x));
+
+            System.out.println("transP  : " + transP);
+                   System.out.println("transPgx  : " + transP.get(a));
+
+            //System.out.println("D a : " + a + " / transE : " + transEtiq);
+            ArrayList<ArrayList<Integer>> P = transP.get(a);
+            System.out.println("P : " + P);
+            for (int y=0; y<P.get(0).size();y++){
+                // System.out.println("F");
+                System.out.println("transPgxg0gy  : " + transP.get(a).get(0).get(y));
+                ArrayList<Integer> Q = transP.get(a).get(0);//P.get(y);
+                System.out.println("Q : " + Q);
+                System.out.println("Qgy : " + Q.get(y));
+                //System.out.println("G");
+               // System.out.println("!Q.equals(T) : " + !Q.equals(T));
+
+                    for(int z=0;z<Q.size();z++){
+                      //  System.out.println("TEST: ");
+                    if ((!L.contains(y))){
+                    //for(int z=0; z<etatP.size();z++){
+                        //if(!Q.get(z).equals(T)){
+                    System.out.println("Lav : " + L);
+                            L.add(y);
+                    System.out.println("Lap : " + L);
+                        // }
+
+
+                    //System.out.println("I");
+                }}
+            }//System.out.println("J");
+        }//System.out.println("OK etiq : " + L);
+        L.remove(T);
+        System.out.println("L : " + L);
+        return L;
+    }
+
+    public ArrayList propriete(ArrayList<Object> p){
+        ArrayList<Object> L = new ArrayList();
+
+        for(int x=0;x<p.size();x++){
+            int a = propP.indexOf(p.get(x));
+            ArrayList<Boolean> P = propP.get(a);
+            for (int y=0; y<P.size();y++){
+                if (P.get(y)==true){
+                    L.add(y);
+                }
+            }
+        }//System.out.println("K prop : " + L);
+        return L;
+    }
+
+    public ArrayList<ArrayList<Integer>> pred (/*Systeme S,*/int nbEtat, int ini, int N){
+        //System.out.println("1");
+        ArrayList T=new ArrayList();
+        T.add(-1);
+        //System.out.println("2");
+        //System.out.println("pred" + pred);
+        if(this.pred.isEmpty()){
+            //System.out.println("3");
+            for (int x = 0; x<nbEtat;x++){
+                //System.out.println("4");
+                pred.add(T);
+                //System.out.println("5");
+                //System.out.println("predIni : " + pred);
+            }
+            //System.out.println("6");
+        }
+        //System.out.println("7");
+        //System.out.println("pred : " + pred);
+
+        if(nbEtat==0){
+            //System.out.println("8 if");
+            return null;}
+        else if (nbEtat==1){
+            //System.out.println("9 else if");
+            for(int x=0;x<transP.size();x++){
+                //System.out.println("10.1 x: " + x);
+                ArrayList<Integer> X=transP.get(x).get(ini);
+                //System.out.println("10.2 X : " + X);
+                if(!X.equals(T)){
+                    //System.out.println("11");
+                    for(int y=0;y<X.size();y++){
+                        //System.out.println("12.1 y : " + y);
+                        //System.out.println("12.2 pred.get(X.get(y)): " + pred.get(X.get(y)));
+                        if(pred.get(X.get(y)).equals(T)){
+                            //System.out.println("13 X.get(y) : " + X.get(y));
+                            ArrayList<Integer> R = new ArrayList<Integer>();
+                            R.add(ini);
+                            //System.out.println("14 R : " + R);
+                            pred.set(X.get(y), R);
+                            //System.out.println("15 pred : " + pred);
+                        }else {
+                            //System.out.println("16");
+                            if(!pred.get(X.get(y)).contains(ini)){
+                                pred.get(X.get(y)).add(ini);
+                            }
+                            //System.out.println("17");
+                        }
+                    }
+                }
+            }
+        }else {//System.out.println("18");
+            int M = nbEtat / 2;
+            N=N+M;
+            //System.out.println("-----------19--------pred(/*S,*/M, ini, N) / M : "+M+" /ini : "+ini+" /N : "+ N);
+            pred(/*S,*/M, ini, N);
+            //System.out.println("-----------20-----------pred(/*S,*/nbEtat-M,ini+M,N) / M(nbE-ini) : " + (nbEtat - M) + " /ini+M : " + (ini+M)+" /N : "+ N);
+            pred(/*S,*/nbEtat - M, ini + M, N);//System.out.println("21");
+        }
+        //System.out.println("22");
+        return pred;
+    }
+
+    public ArrayList<Integer> EX(ArrayList<Object> p){
+        // System.out.println("1");
+        ArrayList<Integer> T = etiquette(p);
+        //   System.out.println("2");
+        ArrayList<Integer> L = new ArrayList();
+        //   System.out.println("3");
+        for(int x=0;x<transP.size();x++){
+            //      System.out.println("4");
+            for (int y=0; y<transP.get(x).size();y++){
+                //       System.out.println("5");
+                for(int z=0; z<T.size();z++) {
+                    //          System.out.println("6");
+                    if (transP.get(x).get(y).contains(T.get(z)) && !L.contains(y)){
+                        //        System.out.println("7");
+                        L.add(y);
+                        //       System.out.println("8");
+                        break;
+                    }//System.out.println("9");
+                }//System.out.println("10");
+            }//System.out.println("11");
+        }//System.out.println("12");
+        Collections.sort(L);
+        //  System.out.println("K EX : " + L);
+        return L;
+
+    }
+
+    public ArrayList<Integer> AX(ArrayList<Object> p){
+        ArrayList<Integer> T = etiquette(p);
+        System.out.println("T : " + T);
+        ArrayList<Integer> L = new ArrayList();
+        int cpt;
+        for(int x=0;x<transP.size();x++){
+            // System.out.println("x : " + x);
+            for (int y=0; y<transP.get(x).size();y++){
+                // System.out.println("y : " + y);
+                cpt=0;
+                ArrayList<Integer> P = transP.get(x).get(y);
+                // System.out.println("transEtiq.get(x).get(y) : " + transEtiq.get(x).get(y));
+                for(int z=0;z<P.size();z++){
+                    //  System.out.println("z : " + z);
+                    //  System.out.println("P.get(z) : " + P.get(z));
+                    if(T.contains(P.get(z))){
+                        cpt++;
+                    }else break;
+                }//System.out.println("cpt : " + cpt);
+                // System.out.println("P.size() : " + P.size());
+                ArrayList M = new ArrayList();
+                M.add(y);
+                if (cpt==succ(M).size())
+                    L.add(y);
+            }
+        }
+        //  Collections.sort(L);System.out.println("K AX : " + L);
+        return L;
+
+    }
+
+    public ArrayList<Integer> AXEX(ArrayList<Object> p){
+        //System.out.println("_________________________");
+        ArrayList T=new ArrayList();
+        T.add(-1);
+        ArrayList<Integer> L = new ArrayList();
+        ArrayList<Integer> S = EX(p);
+        ArrayList<Integer> A;
+        // System.out.println("p : " + p);
+        // System.out.println("S : " + S);
+
+        if(pred.isEmpty()){
+            pred(etatP.size(), 0, 0);}
+
+        for (int x=0; x<etatP.size();x++){int cpt=0;
+            ArrayList<Integer> B= new ArrayList<Integer>();
+            // System.out.println("B état ini : " + B);
+            B.add(x);
+            // System.out.println("B état pick : " + B);
+            A=succ(B);
+            //  System.out.println("A succ(état) : " + A);
+
+            //  System.out.println("S AX(p) : " + S);
+            //   System.out.println("S.contains(A) : " + S.contains(A));
+            /*if(S.contains(A)){
+                L.add(etat.get(x));
+            }*/
+            for(int y=0; y<A.size();y++){
+                //  System.out.println("S.contains(A) ac y : " + S.contains(A.get(y)));
+
+                if(S.contains(A.get(y))){
+                    cpt++;
+                }
+            }
+
+            if (cpt==A.size()){
+                L.add(x);
+            }
+        }
+        //  System.out.println("L AXEX : " + L);
+        return L;
+    }
+
+    public ArrayList<Integer> EXAX(ArrayList<Object> p) {
+        // System.out.println("L : " + L);
+        ArrayList T=new ArrayList();
+        T.add(-1);
+        ArrayList<Integer> L = new ArrayList();
+        ArrayList<Integer> S = AX(p);
+        if(pred.isEmpty()){
+            pred(etatP.size(), 0, 0);}
+        //System.out.println("pred : " + pred);
+        //System.out.println("S : "+ S);
+        for(int x=0;x<T.size();x++){
+            ArrayList<Integer> M = new ArrayList<Integer>();
+            M.add(S.get(x));
+            //    System.out.println("M : " + M);
+            //   System.out.println("T : " + T);
+            //   System.out.println("M : " + M);
+            //System.out.println("Lav : " + L);
+//            if(!(pred.get(S.get(x))).equals(T)){
+            //   System.out.println("succ(M) : " + succ(M));
+            //   System.out.println("L : " + L);
+            //  System.out.println("pred : " + pred);
+            L.addAll(pred.get(S.get(x)));
+            //  System.out.println("L : " + L);
+            //System.out.println("Lap : " + L);
+            // }
+        }//System.out.println("LF : "+ L);
+        //M=succ(L);//System.out.println("M EXAX : " + M);
+        return L;
+    }
+
+
+
+}

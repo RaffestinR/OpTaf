@@ -1,0 +1,9 @@
+digraph system {
+_0[label="", shape=none ];
+_0->0;
+_1[label="", shape=none ];
+_1->1;
+0->1 [label= "a"];
+1->0 [label= "c"];
+1->1 [label= "d"];
+}

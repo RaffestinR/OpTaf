@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="79.25" y="114.701171875">outil</node>
+    <node x="40.0" y="6.701171875">systeme</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="systeme" target="systeme">
+      <point x="-9.75" y="14.0" />
+      <point x="88.75" y="74.701171875" />
+      <point x="0.0" y="74.701171875" />
+      <point x="0.0" y="11.367838541666657" />
+      <point x="-58.5" y="-9.333333333333343" />
+    </edge>
+    <edge source="outil" target="outil">
+      <point x="24.25" y="14.0" />
+      <point x="152.0" y="172.701171875" />
+      <point x="49.25" y="172.701171875" />
+      <point x="49.25" y="121.701171875" />
+      <point x="-48.5" y="-7.0" />
+    </edge>
+    <edge source="outil" target="systeme">
+      <point x="-7.105427357601002E-15" y="-14.0" />
+      <point x="29.25" y="14.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="2.100000000000001" x="73.66666666666652" y="99.09523809523802" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Inner Classes</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

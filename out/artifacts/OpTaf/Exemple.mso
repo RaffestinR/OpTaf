@@ -1,0 +1,38 @@
+S1 = [x,y] {
+	etat = 2;
+	init = 0,1;
+	0=x;
+	1=y;
+	0->1 [a];
+
+	1->0 [c];
+	1->1 [d];
+};;
+
+todot A1.dot S1;;
+
+S2 = [x,z] {
+	 etat=2;
+	 init=0,1;
+	 0=x;
+	 1=z;
+	 0->1 [b];
+	 	0->0 [a];
+	 1->0 [c];
+	 1->1 [d];
+};;
+
+todot A2.dot S2;;
+
+systeme = <S1 p, S2 q> {
+	<a,_>;
+	<_,b>;
+	<c,c>;
+	<d,d>;
+	};;
+
+
+todot A.dot systeme;;
+
+
+
